@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.2 2405546, 2018-03-11"
+   sodipodi:docname="preslogo.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.505"
+     inkscape:cx="302.33289"
+     inkscape:cy="577.5389"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1545"
+     inkscape:window-height="836"
+     inkscape:window-x="55"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2">
+    <circle
+       style="fill:#dbe3de;stroke-width:0.26458332"
+       id="path3877"
+       cx="55.052158"
+       cy="150.50401"
+       r="28.865108"
+       inkscape:export-xdpi="95.03138"
+       inkscape:export-ydpi="95.03138" />
+    <circle
+       style="fill:#dbe3de;fill-opacity:1;stroke-width:0.52916664"
+       id="path3883-4"
+       cx="125.4982"
+       cy="160.23488"
+       transform="rotate(-10.165827)"
+       r="9.6217022"
+       inkscape:export-xdpi="95.03138"
+       inkscape:export-ydpi="95.03138" />
+    <circle
+       style="fill:#dbe3de;fill-opacity:1;stroke-width:0.52916664"
+       id="path3883-4-7"
+       cx="102.22968"
+       cy="155.48749"
+       transform="rotate(-10.165827)"
+       r="9.6217022"
+       inkscape:export-xdpi="95.03138"
+       inkscape:export-ydpi="95.03138" />
+    <circle
+       style="fill:#dbe3de;fill-opacity:1;stroke-width:0.52916664"
+       id="path3883-4-3"
+       cx="78.201889"
+       cy="151.21097"
+       transform="rotate(-10.165827)"
+       r="9.6217022"
+       inkscape:export-xdpi="95.03138"
+       inkscape:export-ydpi="95.03138" />
+    <path
+       style="fill:none;stroke:#dbe3de;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 152.3244,135.22619 c 0,0 -37.41964,-49.136905 -85.800592,-0.75595"
+       id="path6184"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="95.03138"
+       inkscape:export-ydpi="95.03138" />
+    <path
+       style="fill:none;stroke:#dbe3de;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 126.62202,136.36012 c 0,0 3.77976,-34.77381 -60.098212,-1.88988"
+       id="path6205"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="95.03138"
+       inkscape:export-ydpi="95.03138" />
+    <path
+       style="fill:none;stroke:#dbe3de;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 74.461308,134.47024 27.214282,-0.75596"
+       id="path6211"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="95.03138"
+       inkscape:export-ydpi="95.03138" />
+  </g>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:Cantarell;-inkscape-font-specification:Cantarell;letter-spacing:0px;word-spacing:0px;fill:#37abc8;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="48.643055"
+       y="176.00398"
+       id="text3715"
+       inkscape:export-xdpi="95.03138"
+       inkscape:export-ydpi="95.03138"><tspan
+         sodipodi:role="line"
+         id="tspan3713"
+         x="48.643055"
+         y="176.00398"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.79999924px;font-family:'DejaVu Serif';-inkscape-font-specification:'DejaVu Serif';fill:#37abc8;stroke-width:0.26458332">Pres</tspan></text>
+  </g>
+</svg>
