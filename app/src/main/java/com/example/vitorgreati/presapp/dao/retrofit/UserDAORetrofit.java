@@ -4,6 +4,8 @@ import com.example.vitorgreati.presapp.model.User;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
@@ -13,6 +15,7 @@ public interface UserDAORetrofit {
     Call<User> create(@Body User u);
 
     @POST("users/authentication")
-    Call<User> authenticate(@Body String email, @Body String password);
+    @FormUrlEncoded
+    Call<User> authenticate(@Field("email") String email, @Field("password") String password);
 
 }

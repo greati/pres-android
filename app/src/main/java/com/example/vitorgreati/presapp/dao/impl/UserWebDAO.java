@@ -57,7 +57,7 @@ public class UserWebDAO implements UserDAO {
 
             if (response.code() == 200) {
                 return response.body();
-            } else if (response.code() == 500) {
+            } else if (response.code() == 401 || response.code() == 404) {
                 throw new AuthenticationException();
             } else {
                 throw new WebException();
