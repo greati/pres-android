@@ -3,6 +3,7 @@ package com.example.vitorgreati.presapp.dao.impl;
 import com.example.vitorgreati.presapp.dao.interfaces.UserDAO;
 import com.example.vitorgreati.presapp.dao.retrofit.UserDAORetrofit;
 import com.example.vitorgreati.presapp.exception.AuthenticationException;
+import com.example.vitorgreati.presapp.exception.DuplicateUsernameException;
 import com.example.vitorgreati.presapp.exception.WebException;
 import com.example.vitorgreati.presapp.model.User;
 
@@ -26,16 +27,24 @@ public class UserWebDAO implements UserDAO {
 
     private UserWebDAO() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://127.0.0.1:3000")
+                .baseUrl("http://10.0.2.2:3000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         userRetrofit = retrofit.create(UserDAORetrofit.class);
     }
 
     @Override
-    public User create(User u) throws WebException {
+    public User create(User u) throws WebException, DuplicateUsernameException {
         try {
-            return userRetrofit.create(u).execute().body();
+            Response<User> response = userRetrofit.create(u).execute();
+
+            if (response.code() == 200) {
+                return response.body();
+            } else if (response.code() == 500) {
+                throw new DuplicateUsernameException();
+            } else {
+                throw new WebException();
+            }
         } catch (IOException e) {
             throw new WebException(e);
         }
@@ -47,7 +56,7 @@ public class UserWebDAO implements UserDAO {
             Response<User> response = userRetrofit.authenticate(email, password).execute();
 
             if (response.code() == 200) {
-                return userRetrofit.authenticate(email, password).execute().body();
+                return response.body();
             } else if (response.code() == 500) {
                 throw new AuthenticationException();
             } else {
