@@ -17,8 +17,15 @@ public class AdapterSession extends RecyclerView.Adapter<AdapterSession.ViewHold
 
     private List<PresSession> sessions;
 
-    public AdapterSession(List<PresSession> sessions) {
+    private static OnItemClickListener itemClickListener;
+
+    public AdapterSession(List<PresSession> sessions, OnItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
         this.sessions = sessions;
+    }
+
+    public List<PresSession> getSessions() {
+        return this.sessions;
     }
 
     @NonNull
@@ -55,6 +62,18 @@ public class AdapterSession extends RecyclerView.Adapter<AdapterSession.ViewHold
             tvPresTitle = itemView.findViewById(R.id.tvPresTitle);
             tvLocal = itemView.findViewById(R.id.tvLocal);
             tvDateTime = itemView.findViewById(R.id.tvDateTime);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (itemClickListener != null)
+                        itemClickListener.onItemClick(getAdapterPosition(), v);
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int p, View v);
     }
 }

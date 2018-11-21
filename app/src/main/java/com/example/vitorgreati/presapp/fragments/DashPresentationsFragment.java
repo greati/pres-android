@@ -1,5 +1,6 @@
 package com.example.vitorgreati.presapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.vitorgreati.presapp.NewPresActivity;
+import com.example.vitorgreati.presapp.PresManagerActivity;
 import com.example.vitorgreati.presapp.R;
 import com.example.vitorgreati.presapp.adapters.AdapterDashPres;
 import com.example.vitorgreati.presapp.model.Presentation;
@@ -20,7 +23,7 @@ import com.example.vitorgreati.presapp.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DashPresentationsFragment extends Fragment {
+public class DashPresentationsFragment extends Fragment implements AdapterDashPres.OnItemClickListener {
 
     private User user;
 
@@ -55,19 +58,27 @@ public class DashPresentationsFragment extends Fragment {
         testList.add(new Presentation("Title 1", "Desc 1"));
         testList.add(new Presentation("Title 2", "Desc 2"));
 
-        adapterPres = new AdapterDashPres(testList);
+        adapterPres = new AdapterDashPres(testList, this);
         recyclerPres.setAdapter(adapterPres);
 
         fabAddPres = v.findViewById(R.id.fabAddPres);
         fabAddPres.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Open", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(v.getContext(), NewPresActivity.class);
+                startActivity(i);
             }
         });
 
-
-
         return v;
+    }
+
+    @Override
+    public void onItemClick(int pos, View v) {
+        Presentation clickedPres = ((AdapterDashPres) adapterPres).getPresentations().get(pos);
+
+        Intent i = new Intent(v.getContext(), PresManagerActivity.class);
+        i.putExtra("pres", clickedPres);
+        startActivity(i);
     }
 }

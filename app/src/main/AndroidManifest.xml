@@ -25,8 +25,14 @@
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".DashboardActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            ></activity>
+        <activity
+            android:name=".DashboardActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".NewPresActivity" />
+        <activity
+            android:name=".PresManagerActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".NewSessionActivity"></activity>
     </application>
 
 </manifest>
