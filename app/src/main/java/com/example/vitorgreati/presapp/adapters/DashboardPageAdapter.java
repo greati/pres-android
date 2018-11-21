@@ -33,9 +33,9 @@ public class DashboardPageAdapter extends FragmentPagerAdapter {
             case FRAG_PROFILE:
                 return DashProfileFragment.newInstance(AppUtils.getLoggedUser(this.ctx));
             case FRAG_PRESENTATIONS:
-                return DashProfileFragment.newInstance(AppUtils.getLoggedUser(this.ctx));
+                return DashPresentationsFragment.newInstance(AppUtils.getLoggedUser(this.ctx));
             case FRAG_ATTENDS:
-                return DashProfileFragment.newInstance(AppUtils.getLoggedUser(this.ctx));
+                return DashAttendsFragment.newInstance(AppUtils.getLoggedUser(this.ctx));
         }
         return null;
     }
