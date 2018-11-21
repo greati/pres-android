@@ -12,5 +12,7 @@
     <string name="tab_pres_sessions">Sessions</string>
     <string name="pres_manager_title">Pres manager</string>
     <string name="new_session_title">New session</string>
+    <string name="tab_session_info">Info</string>
+    <string name="tab_session_questions">Questions</string>
 
 </resources>

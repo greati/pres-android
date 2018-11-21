@@ -32,7 +32,10 @@
         <activity
             android:name=".PresManagerActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".NewSessionActivity"></activity>
+        <activity android:name=".NewSessionActivity" />
+        <activity android:name=".SessionManagerActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            ></activity>
     </application>
 
 </manifest>

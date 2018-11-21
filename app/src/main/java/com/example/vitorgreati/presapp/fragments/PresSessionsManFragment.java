@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.vitorgreati.presapp.NewSessionActivity;
 import com.example.vitorgreati.presapp.R;
+import com.example.vitorgreati.presapp.SessionManagerActivity;
 import com.example.vitorgreati.presapp.adapters.AdapterSession;
 import com.example.vitorgreati.presapp.model.Location;
 import com.example.vitorgreati.presapp.model.PresSession;
@@ -93,5 +94,10 @@ public class PresSessionsManFragment extends Fragment implements AdapterSession.
     @Override
     public void onItemClick(int p, View v) {
         PresSession s = ((AdapterSession) adapterSession).getSessions().get(p);
+
+        Intent i = new Intent(v.getContext(), SessionManagerActivity.class);
+        i.putExtra("session", s);
+        startActivity(i);
+
     }
 }
