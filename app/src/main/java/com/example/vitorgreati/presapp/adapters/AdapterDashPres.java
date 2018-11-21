@@ -16,8 +16,15 @@ public class AdapterDashPres extends RecyclerView.Adapter<AdapterDashPres.ViewHo
 
     private List<Presentation> presentations;
 
-    public AdapterDashPres(List<Presentation> presentations) {
+    private static OnItemClickListener itemClickListener;
+
+    public AdapterDashPres(List<Presentation> presentations, OnItemClickListener itemClickListener) {
         this.presentations = presentations;
+        this.itemClickListener = itemClickListener;
+    }
+
+    public List<Presentation> getPresentations() {
+        return this.presentations;
     }
 
     @NonNull
@@ -50,7 +57,19 @@ public class AdapterDashPres extends RecyclerView.Adapter<AdapterDashPres.ViewHo
             super(itemView);
             tvPresTitle = itemView.findViewById(R.id.tvPresTitle);
             tvPresDesc = itemView.findViewById(R.id.tvPresDesc);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (itemClickListener != null)
+                        itemClickListener.onItemClick(getAdapterPosition(), v);
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int pos, View v);
     }
 
 }

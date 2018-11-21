@@ -7,4 +7,10 @@
     <string name="tab_profile_title">Profile</string>
     <string name="tab_presentations_title">Presentations</string>
     <string name="tab_attends_title">Attends</string>
+    <string name="new_pres_title">New presentation</string>
+    <string name="tab_pres_info">Info</string>
+    <string name="tab_pres_sessions">Sessions</string>
+    <string name="pres_manager_title">Pres manager</string>
+    <string name="new_session_title">New session</string>
+
 </resources>

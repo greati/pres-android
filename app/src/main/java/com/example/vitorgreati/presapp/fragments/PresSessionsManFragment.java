@@ -1,5 +1,6 @@
 package com.example.vitorgreati.presapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,30 +13,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.vitorgreati.presapp.NewSessionActivity;
 import com.example.vitorgreati.presapp.R;
-import com.example.vitorgreati.presapp.adapters.AdapterDashPres;
 import com.example.vitorgreati.presapp.adapters.AdapterSession;
 import com.example.vitorgreati.presapp.model.Location;
 import com.example.vitorgreati.presapp.model.PresSession;
 import com.example.vitorgreati.presapp.model.Presentation;
-import com.example.vitorgreati.presapp.model.User;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DashAttendsFragment extends Fragment implements AdapterSession.OnItemClickListener {
+public class PresSessionsManFragment extends Fragment implements AdapterSession.OnItemClickListener {
 
-    private FloatingActionButton fabAddAttends;
+    private FloatingActionButton fabAddSession;
 
     private RecyclerView recyclerSession;
     private RecyclerView.Adapter adapterSession;
     private RecyclerView.LayoutManager layoutManagerSession;
 
-    public static Fragment newInstance(User u) {
-        Fragment instance = new DashAttendsFragment();
+    private Presentation pres;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.pres = (Presentation) getArguments().getSerializable("pres");
+    }
+
+    public static Fragment newInstance(Presentation p) {
+        Fragment instance = new PresSessionsManFragment();
         Bundle args = new Bundle();
-        args.putSerializable("user", u);
+        args.putSerializable("pres", p);
         instance.setArguments(args);
         return instance;
     }
@@ -43,6 +51,7 @@ public class DashAttendsFragment extends Fragment implements AdapterSession.OnIt
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View v = inflater.inflate(R.layout.dash_attends_fragment, container, false);
 
         recyclerSession = v.findViewById(R.id.recyclerDashAttends);
@@ -68,11 +77,13 @@ public class DashAttendsFragment extends Fragment implements AdapterSession.OnIt
         adapterSession = new AdapterSession(testList, this);
         recyclerSession.setAdapter(adapterSession);
 
-        fabAddAttends = v.findViewById(R.id.fabAddAttends);
-        fabAddAttends.setOnClickListener(new View.OnClickListener() {
+        fabAddSession = v.findViewById(R.id.fabAddAttends);
+        fabAddSession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Open", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(v.getContext(), NewSessionActivity.class);
+                i.putExtra("presTitle", pres.getTitle());
+                startActivity(i);
             }
         });
 
@@ -81,6 +92,6 @@ public class DashAttendsFragment extends Fragment implements AdapterSession.OnIt
 
     @Override
     public void onItemClick(int p, View v) {
-
+        PresSession s = ((AdapterSession) adapterSession).getSessions().get(p);
     }
 }
