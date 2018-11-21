@@ -3,4 +3,8 @@
     <string name="register_call">Become a Pres user!</string>
     <string name="register_text">Audience member or presenter: improve your experience!</string>
     <string name="register_title">Register to Pres</string>
+    <string name="dashboard_title">Pres dashboard</string>
+    <string name="tab_profile_title">Profile</string>
+    <string name="tab_presentations_title">Presentations</string>
+    <string name="tab_attends_title">Attends</string>
 </resources>
