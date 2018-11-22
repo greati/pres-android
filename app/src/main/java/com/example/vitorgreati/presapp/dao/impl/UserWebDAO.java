@@ -27,7 +27,7 @@ public class UserWebDAO implements UserDAO {
 
     private UserWebDAO() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.0.105:3000")
+                .baseUrl("http://pres-api.vitorgreati.webfactional.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         userRetrofit = retrofit.create(UserDAORetrofit.class);
