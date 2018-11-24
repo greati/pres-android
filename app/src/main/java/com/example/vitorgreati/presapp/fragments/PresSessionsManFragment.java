@@ -82,7 +82,7 @@ public class PresSessionsManFragment extends Fragment implements AdapterSession.
         fabAddSession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), NewSessionActivity.class);
+                Intent i = new Intent(getContext(), NewSessionActivity.class);
                 i.putExtra("presTitle", pres.getTitle());
                 startActivity(i);
             }
@@ -95,7 +95,7 @@ public class PresSessionsManFragment extends Fragment implements AdapterSession.
     public void onItemClick(int p, View v) {
         PresSession s = ((AdapterSession) adapterSession).getSessions().get(p);
 
-        Intent i = new Intent(v.getContext(), SessionManagerActivity.class);
+        Intent i = new Intent(getContext(), SessionManagerActivity.class);
         i.putExtra("session", s);
         startActivity(i);
 

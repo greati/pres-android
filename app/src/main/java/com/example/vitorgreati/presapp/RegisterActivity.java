@@ -57,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getBaseContext(), "Passwords don't match", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this, "Passwords don't match", Toast.LENGTH_LONG).show();
                         }
                     });
             }
@@ -74,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getBaseContext(), "Success", Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this, "Success", Toast.LENGTH_LONG).show();
                     }
                 });
             } catch (WebException e) {
@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getBaseContext(), "Fail to register due to network issues", Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this, "Fail to register due to network issues", Toast.LENGTH_LONG).show();
                     }
                 });
             } catch (DuplicateUsernameException e) {
@@ -90,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getBaseContext(), "Invalid username", Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this, "Invalid username", Toast.LENGTH_LONG).show();
                     }
                 });
             }
