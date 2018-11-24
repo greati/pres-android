@@ -1,4 +1,4 @@
-package com.example.vitorgreati.presapp;
+package com.example.vitorgreati.presapp.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
+import com.example.vitorgreati.presapp.R;
 import com.example.vitorgreati.presapp.model.Alternative;
 
 public class NewChoiceDialog extends DialogFragment {

@@ -8,12 +8,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.vitorgreati.presapp.adapters.DashboardPageAdapter;
 import com.example.vitorgreati.presapp.adapters.SessionManagerPageAdapter;
+import com.example.vitorgreati.presapp.dialogs.StartSessionDialog;
 import com.example.vitorgreati.presapp.model.PresSession;
 
-public class SessionManagerActivity extends AppCompatActivity {
+public class SessionManagerActivity extends AppCompatActivity implements StartSessionDialog.OnSessionStartListener {
 
     private SessionManagerPageAdapter pageAdapter;
     private ViewPager viewPager;
@@ -26,12 +30,36 @@ public class SessionManagerActivity extends AppCompatActivity {
     };
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0, 0, 0, "Open session").setIcon(android.R.drawable.ic_media_play)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                StartSessionDialog dialog = new StartSessionDialog();
+                dialog.show(getSupportFragmentManager(), "OpenSession");
+
+                return true;
+            }
+        });
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
         Toolbar toolbar = findViewById(R.id.toolbarDash);
-        toolbar.setTitle(R.string.dashboard_title);
+        toolbar.setTitle(R.string.session_dashboard);
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
@@ -51,5 +79,10 @@ public class SessionManagerActivity extends AppCompatActivity {
             tabLayout.getTabAt(i).setIcon(tabIcons[i]);
             tabLayout.getTabAt(i).getIcon().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
         }
+    }
+
+    @Override
+    public void onStartSession() {
+
     }
 }
