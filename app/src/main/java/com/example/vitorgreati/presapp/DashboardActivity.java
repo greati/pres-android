@@ -48,6 +48,8 @@ public class DashboardActivity extends AppCompatActivity implements DialogStarte
             tabLayout.getTabAt(i).getIcon().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
         }
 
+
+
     }
 
     @Override
