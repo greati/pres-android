@@ -2,6 +2,7 @@ package com.example.vitorgreati.presapp;
 
 import android.graphics.PorterDuff;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -11,8 +12,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.example.vitorgreati.presapp.adapters.DashboardPageAdapter;
+import com.example.vitorgreati.presapp.interfaces.DialogStarter;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity implements DialogStarter {
 
     private DashboardPageAdapter pageAdapter;
     private ViewPager viewPager;
@@ -45,5 +47,10 @@ public class DashboardActivity extends AppCompatActivity {
             tabLayout.getTabAt(i).getIcon().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
         }
 
+    }
+
+    @Override
+    public void startDialog(DialogFragment dialogFragment) {
+        dialogFragment.show(getSupportFragmentManager(), dialogFragment.getClass().getName());
     }
 }

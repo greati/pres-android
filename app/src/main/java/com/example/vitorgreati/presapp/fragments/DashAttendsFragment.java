@@ -1,5 +1,6 @@
 package com.example.vitorgreati.presapp.fragments;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telecom.CallAudioState;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +21,8 @@ import android.widget.Toast;
 import com.example.vitorgreati.presapp.R;
 import com.example.vitorgreati.presapp.adapters.AdapterDashPres;
 import com.example.vitorgreati.presapp.adapters.AdapterSession;
+import com.example.vitorgreati.presapp.dialogs.EnterSessionDialog;
+import com.example.vitorgreati.presapp.interfaces.DialogStarter;
 import com.example.vitorgreati.presapp.model.Location;
 import com.example.vitorgreati.presapp.model.PresSession;
 import com.example.vitorgreati.presapp.model.Presentation;
@@ -28,15 +32,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DashAttendsFragment extends Fragment implements AdapterSession.OnItemClickListener {
-
-    private FloatingActionButton fabAddAttends;
+public class DashAttendsFragment extends Fragment
+        implements AdapterSession.OnItemClickListener, EnterSessionDialog.OnSessionEnterListener {
 
     private RecyclerView recyclerSession;
     private RecyclerView.Adapter adapterSession;
     private RecyclerView.LayoutManager layoutManagerSession;
 
-    private Context ctx;
+    private DialogStarter dialogStarter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +63,9 @@ public class DashAttendsFragment extends Fragment implements AdapterSession.OnIt
             @Override
             public boolean onMenuItemClick(MenuItem item) {
 
-                // open dialog
+                EnterSessionDialog dialog = new EnterSessionDialog();
+                dialog.setTargetFragment(DashAttendsFragment.this, 1);
+                dialogStarter.startDialog(dialog);
 
                 return true;
             }
@@ -70,7 +75,12 @@ public class DashAttendsFragment extends Fragment implements AdapterSession.OnIt
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.ctx = context;
+
+        try {
+            dialogStarter = (DialogStarter) context;
+        } catch(Exception e) {
+            throw new ClassCastException("Pass a DialogStarter");
+        }
     }
 
     public static Fragment newInstance(User u) {
@@ -109,14 +119,6 @@ public class DashAttendsFragment extends Fragment implements AdapterSession.OnIt
         adapterSession = new AdapterSession(testList, this);
         recyclerSession.setAdapter(adapterSession);
 
-        fabAddAttends = v.findViewById(R.id.fabAddAttends);
-        fabAddAttends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Open", Toast.LENGTH_LONG).show();
-            }
-        });
-
         return v;
     }
 
@@ -124,4 +126,10 @@ public class DashAttendsFragment extends Fragment implements AdapterSession.OnIt
     public void onItemClick(int p, View v) {
 
     }
+
+    @Override
+    public void onEnterSession() {
+        Toast.makeText(getActivity(), "Enter a session", Toast.LENGTH_LONG).show();
+    }
+
 }
