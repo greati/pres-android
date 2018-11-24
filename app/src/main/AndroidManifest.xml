@@ -33,9 +33,10 @@
             android:name=".PresManagerActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".NewSessionActivity" />
-        <activity android:name=".SessionManagerActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            ></activity>
+        <activity
+            android:name=".SessionManagerActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".NewChoiceQuestionActivity"></activity>
     </application>
 
 </manifest>

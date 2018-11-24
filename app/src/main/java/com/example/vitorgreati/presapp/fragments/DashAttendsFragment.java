@@ -1,5 +1,6 @@
 package com.example.vitorgreati.presapp.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -31,6 +32,14 @@ public class DashAttendsFragment extends Fragment implements AdapterSession.OnIt
     private RecyclerView recyclerSession;
     private RecyclerView.Adapter adapterSession;
     private RecyclerView.LayoutManager layoutManagerSession;
+
+    private Context ctx;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.ctx = context;
+    }
 
     public static Fragment newInstance(User u) {
         Fragment instance = new DashAttendsFragment();
@@ -72,7 +81,7 @@ public class DashAttendsFragment extends Fragment implements AdapterSession.OnIt
         fabAddAttends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Open", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Open", Toast.LENGTH_LONG).show();
             }
         });
 

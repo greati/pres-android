@@ -65,7 +65,7 @@ public class DashPresentationsFragment extends Fragment implements AdapterDashPr
         fabAddPres.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), NewPresActivity.class);
+                Intent i = new Intent(getContext(), NewPresActivity.class);
                 startActivity(i);
             }
         });
@@ -77,7 +77,7 @@ public class DashPresentationsFragment extends Fragment implements AdapterDashPr
     public void onItemClick(int pos, View v) {
         Presentation clickedPres = ((AdapterDashPres) adapterPres).getPresentations().get(pos);
 
-        Intent i = new Intent(v.getContext(), PresManagerActivity.class);
+        Intent i = new Intent(getContext(), PresManagerActivity.class);
         i.putExtra("pres", clickedPres);
         startActivity(i);
     }

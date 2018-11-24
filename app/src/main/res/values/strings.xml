@@ -14,5 +14,6 @@
     <string name="new_session_title">New session</string>
     <string name="tab_session_info">Info</string>
     <string name="tab_session_questions">Questions</string>
+    <string name="dialog_new_choice_title">New choice</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.example.vitorgreati.presapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.vitorgreati.presapp.NewChoiceQuestionActivity;
 import com.example.vitorgreati.presapp.R;
 import com.example.vitorgreati.presapp.adapters.AdapterQuestions;
 import com.example.vitorgreati.presapp.model.Alternative;
@@ -62,7 +64,8 @@ public class SessionQuestionsFragment extends Fragment implements AdapterQuestio
         fabAddQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // add question
+                Intent i = new Intent(getContext(), NewChoiceQuestionActivity.class);
+                startActivity(i);
             }
         });
 
