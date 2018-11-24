@@ -83,6 +83,7 @@ public class SessionManagerActivity extends AppCompatActivity implements StartSe
 
     @Override
     public void onStartSession() {
-
+        Intent i = new Intent(this, ActiveSessionPresenterActivity.class);
+        startActivity(i);
     }
 }

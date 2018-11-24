@@ -36,7 +36,9 @@
         <activity
             android:name=".SessionManagerActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".NewChoiceQuestionActivity"></activity>
+        <activity android:name=".NewChoiceQuestionActivity" />
+        <activity android:name=".ActiveSessionPresenterActivity" />
+        <activity android:name=".ActiveSessionAttendActivity"></activity>
     </application>
 
 </manifest>

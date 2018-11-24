@@ -2,6 +2,7 @@ package com.example.vitorgreati.presapp.fragments;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.vitorgreati.presapp.ActiveSessionAttendActivity;
 import com.example.vitorgreati.presapp.R;
 import com.example.vitorgreati.presapp.adapters.AdapterDashPres;
 import com.example.vitorgreati.presapp.adapters.AdapterSession;
@@ -129,7 +131,10 @@ public class DashAttendsFragment extends Fragment
 
     @Override
     public void onEnterSession() {
-        Toast.makeText(getActivity(), "Enter a session", Toast.LENGTH_LONG).show();
+
+        Intent i = new Intent(getActivity(), ActiveSessionAttendActivity.class);
+        startActivity(i);
+
     }
 
 }
