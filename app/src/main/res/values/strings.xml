@@ -16,5 +16,6 @@
     <string name="tab_session_questions">Questions</string>
     <string name="dialog_new_choice_title">New choice</string>
     <string name="session_dashboard">Session dashboard</string>
+    <string name="tab_map_title">Search</string>
 
 </resources>

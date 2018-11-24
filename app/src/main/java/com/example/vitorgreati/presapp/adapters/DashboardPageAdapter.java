@@ -9,16 +9,19 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.example.vitorgreati.presapp.R;
 import com.example.vitorgreati.presapp.config.AppUtils;
 import com.example.vitorgreati.presapp.fragments.DashAttendsFragment;
+import com.example.vitorgreati.presapp.fragments.DashMapFragment;
 import com.example.vitorgreati.presapp.fragments.DashPresentationsFragment;
 import com.example.vitorgreati.presapp.fragments.DashProfileFragment;
 
 public class DashboardPageAdapter extends FragmentPagerAdapter {
 
-    private static final int NUM_PAGES = 3;
+    private static final int NUM_PAGES = 4;
 
     private static final int FRAG_PROFILE = 0;
     private static final int FRAG_PRESENTATIONS = 1;
     private static final int FRAG_ATTENDS = 2;
+    private static final int FRAG_MAPS = 3;
+
 
     private Context ctx;
 
@@ -36,6 +39,8 @@ public class DashboardPageAdapter extends FragmentPagerAdapter {
                 return DashPresentationsFragment.newInstance(AppUtils.getLoggedUser(this.ctx));
             case FRAG_ATTENDS:
                 return DashAttendsFragment.newInstance(AppUtils.getLoggedUser(this.ctx));
+            case FRAG_MAPS:
+                return DashMapFragment.newInstance();
         }
         return null;
     }
@@ -50,6 +55,8 @@ public class DashboardPageAdapter extends FragmentPagerAdapter {
                 return ctx.getString(R.string.tab_presentations_title);
             case FRAG_ATTENDS:
                 return ctx.getString(R.string.tab_attends_title);
+            case FRAG_MAPS:
+                return ctx.getString(R.string.tab_map_title);
         }
         return null;
     }

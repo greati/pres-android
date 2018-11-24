@@ -22,7 +22,8 @@ public class DashboardActivity extends AppCompatActivity implements DialogStarte
     private int[] tabIcons = {
             R.drawable.ic_tab_user,
             R.drawable.ic_pres_name,
-            R.drawable.ic_tab_attends
+            R.drawable.ic_tab_attends,
+            R.drawable.ic_tab_map
     };
 
     @Override
