@@ -1,6 +1,7 @@
 package com.example.vitorgreati.presapp.dao.retrofit;
 
 import com.example.vitorgreati.presapp.exception.UserNotFoundException;
+import com.example.vitorgreati.presapp.model.Participation;
 import com.example.vitorgreati.presapp.model.PresSession;
 import com.example.vitorgreati.presapp.model.Presentation;
 import com.example.vitorgreati.presapp.model.User;
@@ -20,10 +21,10 @@ import retrofit2.http.Path;
 public interface PresSessionDAORetrofit {
 
     @POST("sessions")
-    void create(@Body PresSession s);
+    Call<PresSession> create(@Body PresSession s);
 
     @PUT("sessions")
-    void update(@Body PresSession s);
+    Call<PresSession> update(@Body PresSession s);
 
     @DELETE("sessions")
     void delete(@Body PresSession s);
@@ -37,11 +38,11 @@ public interface PresSessionDAORetrofit {
 
     @POST("sessions/{sessionId}/participations/enter")
     @FormUrlEncoded
-    void participate(@Path("sessionId") String sessionId, @Field("userId") String userId) throws UserNotFoundException;
+    Call<Participation> participate(@Path("sessionId") String sessionId, @Field("userId") String userId) throws UserNotFoundException;
 
     @POST("sessions/{sessionId}/participations/quit")
     @FormUrlEncoded
-    void quit(@Path("sessionId") String sessionId, @Field("userId") String userId) throws UserNotFoundException;
+    Call<Participation> quit(@Path("sessionId") String sessionId, @Field("userId") String userId) throws UserNotFoundException;
 
     @GET("sessions")
     Call<PresSession> get(@Body PresSession s);

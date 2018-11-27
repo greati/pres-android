@@ -25,13 +25,13 @@ public class PresentationWebDAO implements PresentationDAO {
     }
 
     @Override
-    public void create(Presentation p) {
-
+    public Presentation create(Presentation p) {
+        return null;
     }
 
     @Override
-    public void update(Presentation p) {
-
+    public Presentation update(Presentation p) {
+        return null;
     }
 
     @Override

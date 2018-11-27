@@ -11,9 +11,9 @@ import java.util.List;
  */
 public interface PresentationDAO {
 
-    void create(Presentation p);
+    Presentation create(Presentation p);
 
-    void update(Presentation p);
+    Presentation update(Presentation p);
 
     void delete(Presentation p);
 

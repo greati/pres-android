@@ -1,5 +1,6 @@
 package com.example.vitorgreati.presapp.dao.retrofit;
 
+import com.example.vitorgreati.presapp.model.ChoicesAnswer;
 import com.example.vitorgreati.presapp.model.ChoicesQuestion;
 import com.example.vitorgreati.presapp.model.PresSession;
 
@@ -18,10 +19,10 @@ import retrofit2.http.Path;
 public interface QuestionDAORetrofit {
 
     @POST("sessions/{sessionId}/questions")
-    void create(@Body ChoicesQuestion q);
+    Call<ChoicesQuestion> create(@Body ChoicesQuestion q);
 
     @PUT("sessions/{sessionId}/questions")
-    void update(@Body ChoicesQuestion q);
+    Call<ChoicesQuestion> update(@Body ChoicesQuestion q);
 
     @DELETE("sessions/{sessionId}/questions")
     void delete(@Body ChoicesQuestion q);
@@ -36,9 +37,9 @@ public interface QuestionDAORetrofit {
     Call<List<ChoicesQuestion>> list(@Path("sessionId") String sessionId);
 
     @POST("sessions/{sessionId}/questions/{questionId}")
-    void get(@Path("questionId") String questionId);
+    Call<ChoicesQuestion> get(@Path("questionId") String questionId);
 
     @POST("sessions/{sessionId}/questions/{questionId}")
     @FormUrlEncoded
-    void answer(@Path("questionId") String questionId, @Field("userId") String userId);
+    Call<ChoicesAnswer> answer(@Path("questionId") String questionId, @Field("userId") String userId);
 }

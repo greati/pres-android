@@ -16,10 +16,10 @@ import retrofit2.http.Path;
 public interface PresentationDAORetrofit {
 
     @POST("presentations")
-    void create(@Body Presentation p);
+    Call<Presentation> create(@Body Presentation p);
 
     @PUT("presentations")
-    void update(@Body Presentation p);
+    Call<Presentation> update(@Body Presentation p);
 
     @DELETE("presentations")
     void delete(@Body Presentation p);
