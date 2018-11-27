@@ -15,10 +15,10 @@ public class PresSessionWebDAO implements PresSessionDAO {
 
     private static PresSessionWebDAO instance;
 
-    private final PresSessionDAORetrofit presRetrofit;
+    private final PresSessionDAORetrofit sessionRetrofit;
 
     private PresSessionWebDAO(){
-        this.presRetrofit = RetrofitProvider.getInstance().getRetrofit().create(PresSessionDAORetrofit.class);
+        this.sessionRetrofit = RetrofitProvider.getInstance().getRetrofit().create(PresSessionDAORetrofit.class);
     }
 
     public static PresSessionWebDAO getInstance() {

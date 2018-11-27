@@ -14,10 +14,10 @@ public class ChoicesQuestionWebDAO implements ChoicesQuestionDAO {
 
     private static ChoicesQuestionWebDAO instance;
 
-    private final ChoicesQuestionDAORetrofit presRetrofit;
+    private final ChoicesQuestionDAORetrofit choicesQuestionRetrofit;
 
     private ChoicesQuestionWebDAO(){
-        this.presRetrofit = RetrofitProvider.getInstance().getRetrofit().create(ChoicesQuestionDAORetrofit.class);
+        this.choicesQuestionRetrofit = RetrofitProvider.getInstance().getRetrofit().create(ChoicesQuestionDAORetrofit.class);
     }
 
     public static ChoicesQuestionWebDAO getInstance() {
