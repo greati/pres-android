@@ -59,7 +59,7 @@ public class DashPresentationsFragment extends Fragment implements AdapterDashPr
         recyclerPres.setLayoutManager(layoutManagerPres);
 
         // create a list for testing
-        List<Presentation> presentations = new ArrayList<>();
+        presentations = new ArrayList<>();
         presentations.add(new Presentation("Title 1", "Desc 1"));
         presentations.add(new Presentation("Title 2", "Desc 2"));
 

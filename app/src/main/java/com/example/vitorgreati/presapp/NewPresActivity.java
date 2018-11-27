@@ -1,5 +1,6 @@
 package com.example.vitorgreati.presapp;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -37,17 +38,7 @@ public class NewPresActivity extends AppCompatActivity {
 
                 Presentation newPres = new Presentation(title, description);
 
-                try {
-                    Presentation retPres = PresentationWebDAO.getInstance().create(newPres);
-
-                    Toast.makeText(NewPresActivity.this, "Presentation registered", Toast.LENGTH_LONG);
-
-                    //TODO return presentation as result
-
-                    finish();
-                } catch (WebException e) {
-                    Toast.makeText(NewPresActivity.this, "Error on API access", Toast.LENGTH_LONG);
-                }
+                new CreatePresAsyncTask().execute(newPres);
             }
         });
 
@@ -60,4 +51,38 @@ public class NewPresActivity extends AppCompatActivity {
         });
 
     }
+
+    private class CreatePresAsyncTask extends AsyncTask<Presentation, Integer, Presentation> {
+
+        private Exception exception = null;
+
+        @Override
+        protected Presentation doInBackground(Presentation... press) {
+            Presentation retPres  = null;
+            try {
+                retPres = PresentationWebDAO.getInstance().create(press[0]);
+            } catch (WebException e) {
+                exception = e;
+                return null;
+            }
+            return retPres;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(Presentation progress) {
+            super.onPostExecute(progress);
+            if (exception != null) {
+                Toast.makeText(NewPresActivity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(NewPresActivity.this, "Presentation registered", Toast.LENGTH_LONG);
+                finish();
+            }
+        }
+    }
+
 }
