@@ -25,6 +25,9 @@ import java.util.List;
 
 public class DashPresentationsFragment extends Fragment implements AdapterDashPres.OnItemClickListener {
 
+    public static final int REQ_NEW_PRES = 1;
+    public static final int RES_NEW_PRES = 1;
+
     private User user;
 
     private RecyclerView recyclerPres;
@@ -41,6 +44,8 @@ public class DashPresentationsFragment extends Fragment implements AdapterDashPr
         return instance;
     }
 
+    private List<Presentation> presentations;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,11 +59,11 @@ public class DashPresentationsFragment extends Fragment implements AdapterDashPr
         recyclerPres.setLayoutManager(layoutManagerPres);
 
         // create a list for testing
-        List<Presentation> testList = new ArrayList<>();
-        testList.add(new Presentation("Title 1", "Desc 1"));
-        testList.add(new Presentation("Title 2", "Desc 2"));
+        List<Presentation> presentations = new ArrayList<>();
+        presentations.add(new Presentation("Title 1", "Desc 1"));
+        presentations.add(new Presentation("Title 2", "Desc 2"));
 
-        adapterPres = new AdapterDashPres(testList, this);
+        adapterPres = new AdapterDashPres(presentations, this);
         recyclerPres.setAdapter(adapterPres);
 
         fabAddPres = v.findViewById(R.id.fabAddPres);
@@ -66,11 +71,24 @@ public class DashPresentationsFragment extends Fragment implements AdapterDashPr
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), NewPresActivity.class);
-                startActivity(i);
+                startActivityForResult(i, REQ_NEW_PRES);
             }
         });
 
         return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        switch(resultCode) {
+            case RES_NEW_PRES:
+                Presentation p = (Presentation) data.getSerializableExtra("pres");
+                presentations.add(p);
+                adapterPres.notifyDataSetChanged();
+                break;
+        }
+
     }
 
     @Override

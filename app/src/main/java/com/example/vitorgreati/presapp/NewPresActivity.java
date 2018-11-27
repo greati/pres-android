@@ -5,6 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.vitorgreati.presapp.dao.impl.PresentationWebDAO;
+import com.example.vitorgreati.presapp.dao.interfaces.PresentationDAO;
+import com.example.vitorgreati.presapp.exception.WebException;
+import com.example.vitorgreati.presapp.model.Presentation;
 
 public class NewPresActivity extends AppCompatActivity {
 
@@ -26,7 +32,22 @@ public class NewPresActivity extends AppCompatActivity {
         btConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String title = edtTitle.getText().toString();
+                String description = edtDescription.getText().toString();
 
+                Presentation newPres = new Presentation(title, description);
+
+                try {
+                    Presentation retPres = PresentationWebDAO.getInstance().create(newPres);
+
+                    Toast.makeText(NewPresActivity.this, "Presentation registered", Toast.LENGTH_LONG);
+
+                    //TODO return presentation as result
+
+                    finish();
+                } catch (WebException e) {
+                    Toast.makeText(NewPresActivity.this, "Error on API access", Toast.LENGTH_LONG);
+                }
             }
         });
 
