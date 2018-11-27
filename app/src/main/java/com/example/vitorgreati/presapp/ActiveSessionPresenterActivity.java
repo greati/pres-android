@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.vitorgreati.presapp.adapters.AdapterQuestionSessionActive;
-import com.example.vitorgreati.presapp.model.Question;
+import com.example.vitorgreati.presapp.model.ChoicesQuestion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +27,9 @@ public class ActiveSessionPresenterActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         rvQuestions.setLayoutManager(layoutManager);
 
-        List<Question> questions = new ArrayList<>();
-        questions.add(new Question("Question 1", null));
-        questions.add(new Question("Question 2", null));
+        List<ChoicesQuestion> questions = new ArrayList<>();
+        questions.add(new ChoicesQuestion("Question 1", null));
+        questions.add(new ChoicesQuestion("Question 2", null));
 
         adapter = new AdapterQuestionSessionActive(questions);
 

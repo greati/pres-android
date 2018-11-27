@@ -60,8 +60,6 @@ public class DashPresentationsFragment extends Fragment implements AdapterDashPr
 
         // create a list for testing
         presentations = new ArrayList<>();
-        presentations.add(new Presentation("Title 1", "Desc 1"));
-        presentations.add(new Presentation("Title 2", "Desc 2"));
 
         adapterPres = new AdapterDashPres(presentations, this);
         recyclerPres.setAdapter(adapterPres);
