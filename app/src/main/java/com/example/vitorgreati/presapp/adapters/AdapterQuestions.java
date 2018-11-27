@@ -8,22 +8,23 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.vitorgreati.presapp.R;
-import com.example.vitorgreati.presapp.model.Question;
+import com.example.vitorgreati.presapp.model.ChoicesQuestion;
+import com.example.vitorgreati.presapp.model.ChoicesQuestion;
 
 import java.util.List;
 
 public class AdapterQuestions extends RecyclerView.Adapter<AdapterQuestions.ViewHolder> {
 
-    private List<Question> questions;
+    private List<ChoicesQuestion> questions;
 
     private static OnItemClickListener itemClickListener;
 
-    public AdapterQuestions(List<Question> questions, OnItemClickListener itemClickListener) {
+    public AdapterQuestions(List<ChoicesQuestion> questions, OnItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
         this.questions = questions;
     }
 
-    public List<Question> getSessions() {
+    public List<ChoicesQuestion> getSessions() {
         return this.questions;
     }
 
@@ -38,7 +39,7 @@ public class AdapterQuestions extends RecyclerView.Adapter<AdapterQuestions.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        Question s = questions.get(i);
+        ChoicesQuestion s = questions.get(i);
         viewHolder.tvTitle.setText(s.getTitle());
     }
 

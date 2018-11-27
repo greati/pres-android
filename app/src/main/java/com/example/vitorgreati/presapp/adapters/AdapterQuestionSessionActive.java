@@ -8,15 +8,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.vitorgreati.presapp.R;
-import com.example.vitorgreati.presapp.model.Question;
+import com.example.vitorgreati.presapp.model.ChoicesQuestion;
+import com.example.vitorgreati.presapp.model.ChoicesQuestion;
 
 import java.util.List;
 
 public class AdapterQuestionSessionActive extends RecyclerView.Adapter<AdapterQuestionSessionActive.ViewHolder> {
 
-    private List<Question> questions;
+    private List<ChoicesQuestion> questions;
 
-    public AdapterQuestionSessionActive(List<Question> questions) {
+    public AdapterQuestionSessionActive(List<ChoicesQuestion> questions) {
         this.questions = questions;
     }
 
@@ -31,7 +32,7 @@ public class AdapterQuestionSessionActive extends RecyclerView.Adapter<AdapterQu
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        Question q = questions.get(i);
+        ChoicesQuestion q = questions.get(i);
         viewHolder.tvQuestionTitle.setText(q.getTitle());
     }
 

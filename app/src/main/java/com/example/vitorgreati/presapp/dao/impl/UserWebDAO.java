@@ -1,6 +1,7 @@
 package com.example.vitorgreati.presapp.dao.impl;
 
 import com.example.vitorgreati.presapp.dao.interfaces.UserDAO;
+import com.example.vitorgreati.presapp.dao.retrofit.provider.RetrofitProvider;
 import com.example.vitorgreati.presapp.dao.retrofit.UserDAORetrofit;
 import com.example.vitorgreati.presapp.exception.AuthenticationException;
 import com.example.vitorgreati.presapp.exception.DuplicateUsernameException;
@@ -11,7 +12,6 @@ import java.io.IOException;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserWebDAO implements UserDAO {
 
@@ -26,10 +26,7 @@ public class UserWebDAO implements UserDAO {
     }
 
     private UserWebDAO() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://pres-api.vitorgreati.webfactional.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        Retrofit retrofit = RetrofitProvider.getInstance().getRetrofit();
         userRetrofit = retrofit.create(UserDAORetrofit.class);
     }
 
