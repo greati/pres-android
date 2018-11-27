@@ -18,7 +18,7 @@ public interface PresentationDAORetrofit {
     @POST("presentations")
     Call<Presentation> create(@Body Presentation p);
 
-    @DELETE("presentations/{presId}")
+    @PUT("presentations/{presId}")
     Call<Presentation> update(@Path("presId") String presId);
 
     @DELETE("presentations/{presId}")
