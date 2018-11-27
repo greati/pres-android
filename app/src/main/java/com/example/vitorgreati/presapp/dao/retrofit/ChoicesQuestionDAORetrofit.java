@@ -16,7 +16,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
-public interface QuestionDAORetrofit {
+public interface ChoicesQuestionDAORetrofit {
 
     @POST("sessions/{sessionId}/questions")
     Call<ChoicesQuestion> create(@Body ChoicesQuestion q);
