@@ -63,7 +63,12 @@ public class PresSessionWebDAO implements PresSessionDAO {
     }
 
     @Override
-    public PresSession get(String code) {
+    public PresSession read(PresSession s) {
+        return null;
+    }
+
+    @Override
+    public PresSession getByCode(String code) {
         return null;
     }
 

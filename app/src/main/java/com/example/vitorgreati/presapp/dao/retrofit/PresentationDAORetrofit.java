@@ -24,8 +24,8 @@ public interface PresentationDAORetrofit {
     @DELETE("presentations")
     void delete(@Body Presentation p);
 
-    @GET("presentations")
-    Call<Presentation> read(@Body Presentation p);
+    @GET("presentations/{presId}")
+    Call<Presentation> read(@Path("presId") String presId);
 
     @GET("presentations/{userId}")
     Call<List<Presentation>> list(@Path("userId") String user);

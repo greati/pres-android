@@ -25,7 +25,7 @@ public interface ChoicesQuestionDAO {
 
     List<ChoicesQuestion> list(PresSession s);
 
-    ChoicesQuestion get(ChoicesQuestion q);
+    ChoicesQuestion read(ChoicesQuestion q);
 
     ChoicesAnswer answer(User u, ChoicesAnswer answer);
 }

@@ -28,7 +28,9 @@ public interface PresSessionDAO {
 
     Participation quit(PresSession s, User u) throws UserNotFoundException;
 
-    PresSession get(String code);
+    PresSession read(PresSession s);
+
+    PresSession getByCode(String code);
 
     List<PresSession> list(Presentation p);
 

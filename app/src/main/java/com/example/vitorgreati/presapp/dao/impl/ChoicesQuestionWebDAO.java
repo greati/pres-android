@@ -57,7 +57,7 @@ public class ChoicesQuestionWebDAO implements ChoicesQuestionDAO {
     }
 
     @Override
-    public ChoicesQuestion get(ChoicesQuestion q) {
+    public ChoicesQuestion read(ChoicesQuestion q) {
         return null;
     }
 

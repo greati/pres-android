@@ -62,7 +62,7 @@ public class PresentationWebDAO implements PresentationDAO {
     public Presentation read(Presentation p) throws WebException {
 
         try {
-            Response<Presentation> presResp = presRetrofit.read(p).execute();
+            Response<Presentation> presResp = presRetrofit.read(p.getId()).execute();
 
             if (presResp.code() == 200) {
                 return presResp.body();

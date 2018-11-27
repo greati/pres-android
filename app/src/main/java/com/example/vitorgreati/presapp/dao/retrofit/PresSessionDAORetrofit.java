@@ -29,11 +29,15 @@ public interface PresSessionDAORetrofit {
     @DELETE("sessions")
     void delete(@Body PresSession s);
 
+    @GET("sessions/{sessionId}")
+    Call<PresSession> get(@Path("sessionId") String sessionId);
+
     @POST("sessions/{sessionId}/open")
     @FormUrlEncoded
     void open(@Path("sessionId") String sessionId, @Field("userId") String userId);
 
     @POST("sessions/{sessionId}/close")
+    @FormUrlEncoded
     void close(@Path("sessionId") String sessionId, @Field("userId") String userId);
 
     @POST("sessions/{sessionId}/participations/enter")
@@ -43,9 +47,6 @@ public interface PresSessionDAORetrofit {
     @POST("sessions/{sessionId}/participations/quit")
     @FormUrlEncoded
     Call<Participation> quit(@Path("sessionId") String sessionId, @Field("userId") String userId) throws UserNotFoundException;
-
-    @GET("sessions")
-    Call<PresSession> get(@Body PresSession s);
 
     @GET("presentations/{presId}/sessions")
     Call<List<PresSession>> list(@Path("presId") String presId);
