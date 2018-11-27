@@ -18,16 +18,16 @@ public interface PresentationDAORetrofit {
     @POST("presentations")
     Call<Presentation> create(@Body Presentation p);
 
-    @PUT("presentations")
-    Call<Presentation> update(@Body Presentation p);
+    @DELETE("presentations/{presId}")
+    Call<Presentation> update(@Path("presId") String presId);
 
-    @DELETE("presentations")
-    void delete(@Body Presentation p);
+    @DELETE("presentations/{presId}")
+    void delete(@Path("presId") String presId);
 
     @GET("presentations/{presId}")
     Call<Presentation> read(@Path("presId") String presId);
 
-    @GET("presentations/{userId}")
+    @GET("users/{userId}/presentations")
     Call<List<Presentation>> list(@Path("userId") String user);
 
 }
