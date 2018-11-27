@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Question implements Serializable {
+public class ChoicesQuestion implements Serializable {
 
     @SerializedName("title")
     @Expose
@@ -21,9 +21,9 @@ public class Question implements Serializable {
     @Expose
     private Date creationDate;
 
-    public Question() {}
+    public ChoicesQuestion() {}
 
-    public Question(String title, List<Alternative> alternatives) {
+    public ChoicesQuestion(String title, List<Alternative> alternatives) {
         this.title = title;
         this.alternatives = alternatives;
     }
