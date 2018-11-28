@@ -1,5 +1,6 @@
 package com.example.vitorgreati.presapp.dao.interfaces;
 
+import com.example.vitorgreati.presapp.exception.WebException;
 import com.example.vitorgreati.presapp.model.ChoicesAnswer;
 import com.example.vitorgreati.presapp.model.PresSession;
 import com.example.vitorgreati.presapp.model.ChoicesQuestion;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public interface ChoicesQuestionDAO {
 
-    ChoicesQuestion create(ChoicesQuestion q);
+    ChoicesQuestion create(ChoicesQuestion q) throws WebException;
 
     ChoicesQuestion update(ChoicesQuestion q);
 
@@ -23,7 +24,7 @@ public interface ChoicesQuestionDAO {
 
     void close(User u, ChoicesQuestion q);
 
-    List<ChoicesQuestion> list(PresSession s);
+    List<ChoicesQuestion> list(PresSession s) throws WebException;
 
     ChoicesQuestion read(ChoicesQuestion q);
 

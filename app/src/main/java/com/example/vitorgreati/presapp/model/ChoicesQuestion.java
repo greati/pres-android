@@ -17,6 +17,10 @@ public class ChoicesQuestion implements Serializable {
     @Expose
     private List<Alternative> alternatives;
 
+    @SerializedName("session")
+    @Expose
+    private PresSession session;
+
     @SerializedName("creation_date")
     @Expose
     private Date creationDate;
@@ -42,5 +46,21 @@ public class ChoicesQuestion implements Serializable {
 
     public void setAlternatives(List<Alternative> alternatives) {
         this.alternatives = alternatives;
+    }
+
+    public PresSession getSession() {
+        return session;
+    }
+
+    public void setSession(PresSession session) {
+        this.session = session;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 }
