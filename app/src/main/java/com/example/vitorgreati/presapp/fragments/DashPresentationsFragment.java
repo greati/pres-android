@@ -1,6 +1,7 @@
 package com.example.vitorgreati.presapp.fragments;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,9 @@ import com.example.vitorgreati.presapp.NewPresActivity;
 import com.example.vitorgreati.presapp.PresManagerActivity;
 import com.example.vitorgreati.presapp.R;
 import com.example.vitorgreati.presapp.adapters.AdapterDashPres;
+import com.example.vitorgreati.presapp.config.AppUtils;
+import com.example.vitorgreati.presapp.dao.impl.PresentationWebDAO;
+import com.example.vitorgreati.presapp.exception.WebException;
 import com.example.vitorgreati.presapp.model.Presentation;
 import com.example.vitorgreati.presapp.model.User;
 
@@ -58,8 +63,8 @@ public class DashPresentationsFragment extends Fragment implements AdapterDashPr
         layoutManagerPres = new LinearLayoutManager(container.getContext());
         recyclerPres.setLayoutManager(layoutManagerPres);
 
-        // create a list for testing
-        presentations = new ArrayList<>();
+        this.presentations = new ArrayList<>();
+        presentations.add(new Presentation("oi","ola"));
 
         adapterPres = new AdapterDashPres(presentations, this);
         recyclerPres.setAdapter(adapterPres);
@@ -72,6 +77,8 @@ public class DashPresentationsFragment extends Fragment implements AdapterDashPr
                 startActivityForResult(i, REQ_NEW_PRES);
             }
         });
+
+        new ListPresAsyncTask().execute();
 
         return v;
     }
@@ -96,5 +103,37 @@ public class DashPresentationsFragment extends Fragment implements AdapterDashPr
         Intent i = new Intent(getContext(), PresManagerActivity.class);
         i.putExtra("pres", clickedPres);
         startActivity(i);
+    }
+
+    private class ListPresAsyncTask extends AsyncTask<Void, Void, List<Presentation>> {
+
+        private Exception e = null;
+
+        @Override
+        protected List<Presentation> doInBackground(Void... voids) {
+
+            try {
+                return PresentationWebDAO.getInstance().list(AppUtils.getLoggedUser(getActivity()));
+            } catch (WebException e1) {
+                e = e1;
+                return null;
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(List<Presentation> pres) {
+            if (e != null) {
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            } else {
+                DashPresentationsFragment.this.presentations.clear();
+                presentations.addAll(pres);
+                DashPresentationsFragment.this.adapterPres.notifyDataSetChanged();
+            }
+        }
     }
 }
