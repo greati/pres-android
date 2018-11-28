@@ -1,6 +1,7 @@
 package com.example.vitorgreati.presapp.dao.interfaces;
 
 import com.example.vitorgreati.presapp.exception.UserNotFoundException;
+import com.example.vitorgreati.presapp.exception.WebException;
 import com.example.vitorgreati.presapp.model.Participation;
 import com.example.vitorgreati.presapp.model.PresSession;
 import com.example.vitorgreati.presapp.model.Presentation;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public interface PresSessionDAO {
 
-    PresSession create(PresSession s);
+    PresSession create(PresSession s) throws WebException;
 
     PresSession update(PresSession s);
 
@@ -32,6 +33,6 @@ public interface PresSessionDAO {
 
     PresSession getByCode(String code);
 
-    List<PresSession> list(Presentation p);
+    List<PresSession> list(Presentation p) throws WebException;
 
 }

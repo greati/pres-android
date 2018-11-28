@@ -1,6 +1,7 @@
 package com.example.vitorgreati.presapp.fragments;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +18,8 @@ import com.example.vitorgreati.presapp.NewSessionActivity;
 import com.example.vitorgreati.presapp.R;
 import com.example.vitorgreati.presapp.SessionManagerActivity;
 import com.example.vitorgreati.presapp.adapters.AdapterSession;
+import com.example.vitorgreati.presapp.dao.impl.PresSessionWebDAO;
+import com.example.vitorgreati.presapp.exception.WebException;
 import com.example.vitorgreati.presapp.model.Location;
 import com.example.vitorgreati.presapp.model.PresSession;
 import com.example.vitorgreati.presapp.model.Presentation;
@@ -27,6 +30,9 @@ import java.util.List;
 
 public class PresSessionsManFragment extends Fragment implements AdapterSession.OnItemClickListener {
 
+    public static final int REQ_NEW_SESSION = 1;
+    public static final int RES_NEW_SESSION = 1;
+
     private FloatingActionButton fabAddSession;
 
     private RecyclerView recyclerSession;
@@ -34,6 +40,8 @@ public class PresSessionsManFragment extends Fragment implements AdapterSession.
     private RecyclerView.LayoutManager layoutManagerSession;
 
     private Presentation pres;
+
+    private List<PresSession> sessions;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,20 +70,9 @@ public class PresSessionsManFragment extends Fragment implements AdapterSession.
         layoutManagerSession = new LinearLayoutManager(container.getContext());
         recyclerSession.setLayoutManager(layoutManagerSession);
 
-        // create a list for testing
+        sessions = new ArrayList<>();
 
-        Presentation p1 = new Presentation("Pres 1", "Desc 1");
-        Presentation p2 = new Presentation("Pres 2", "Desc 2");
-
-        PresSession s1 = new PresSession(new Location("IMD, UFRN", 1.0, 2.0), new Date(), p1);
-        PresSession s2 = new PresSession(new Location("SEBRAE-RN", 1.0, 2.0), new Date(), p2);
-
-
-        List<PresSession> testList = new ArrayList<>();
-        testList.add(s1);
-        testList.add(s2);
-
-        adapterSession = new AdapterSession(testList, this);
+        adapterSession = new AdapterSession(sessions, this);
         recyclerSession.setAdapter(adapterSession);
 
         fabAddSession = v.findViewById(R.id.fabAddAttends);
@@ -83,21 +80,61 @@ public class PresSessionsManFragment extends Fragment implements AdapterSession.
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), NewSessionActivity.class);
-                i.putExtra("presTitle", pres.getTitle());
-                startActivity(i);
+                i.putExtra("pres", pres);
+                startActivityForResult(i, REQ_NEW_SESSION);
             }
         });
+
+        new ListSessionsAsyncTask().execute(pres);
 
         return v;
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case RES_NEW_SESSION:
+                PresSession s = (PresSession) data.getSerializableExtra("session");
+                sessions.add(s);
+                adapterSession.notifyDataSetChanged();
+                break;
+
+        }
+    }
+
+    @Override
     public void onItemClick(int p, View v) {
         PresSession s = ((AdapterSession) adapterSession).getSessions().get(p);
-
         Intent i = new Intent(getContext(), SessionManagerActivity.class);
         i.putExtra("session", s);
         startActivity(i);
+    }
 
+    private class ListSessionsAsyncTask extends AsyncTask<Presentation, Void, List<PresSession>> {
+
+        private Exception e;
+
+        @Override
+        protected List<PresSession> doInBackground(Presentation... press) {
+            try {
+                return PresSessionWebDAO.getInstance().list(press[0]);
+            } catch (WebException e1) {
+                e = e1;
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(List<PresSession> presSessions) {
+            super.onPostExecute(presSessions);
+            if (e != null) {
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            } else {
+                sessions.clear();
+                sessions.addAll(presSessions);
+                adapterSession.notifyDataSetChanged();
+            }
+        }
     }
 }
