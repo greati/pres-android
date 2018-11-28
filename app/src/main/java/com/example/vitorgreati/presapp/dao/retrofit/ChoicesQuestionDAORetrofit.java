@@ -18,10 +18,10 @@ import retrofit2.http.Path;
 
 public interface ChoicesQuestionDAORetrofit {
 
-    @POST("sessions/{sessionId}/questions")
+    @POST("questions")
     Call<ChoicesQuestion> create(@Body ChoicesQuestion q);
 
-    @PUT("sessions/{sessionId}/questions")
+    @PUT("questions")
     Call<ChoicesQuestion> update(@Body ChoicesQuestion q);
 
     @DELETE("sessions/{sessionId}/questions")
