@@ -1,5 +1,7 @@
 package com.example.vitorgreati.presapp.dao.impl;
 
+import android.util.Log;
+
 import com.example.vitorgreati.presapp.dao.interfaces.PresentationDAO;
 import com.example.vitorgreati.presapp.dao.retrofit.PresentationDAORetrofit;
 import com.example.vitorgreati.presapp.dao.retrofit.provider.RetrofitProvider;
@@ -36,6 +38,8 @@ public class PresentationWebDAO implements PresentationDAO {
 
             if (newPres.code() == 200) {
                 return newPres.body();
+            } else {
+                Log.i("pres", ""+newPres.code());
             }
             //TODO errors
 

@@ -39,8 +39,10 @@ public class AdapterDashPres extends RecyclerView.Adapter<AdapterDashPres.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Presentation p = presentations.get(i);
-        viewHolder.tvPresTitle.setText(p.getTitle());
-        viewHolder.tvPresDesc.setText(p.getDescription());
+        if (p != null) {
+            viewHolder.tvPresTitle.setText(p.getTitle());
+            viewHolder.tvPresDesc.setText(p.getDescription());
+        }
     }
 
     @Override

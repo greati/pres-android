@@ -17,7 +17,7 @@ import com.example.vitorgreati.presapp.R;
 import com.example.vitorgreati.presapp.adapters.AdapterQuestions;
 import com.example.vitorgreati.presapp.model.Alternative;
 import com.example.vitorgreati.presapp.model.PresSession;
-import com.example.vitorgreati.presapp.model.Question;
+import com.example.vitorgreati.presapp.model.ChoicesQuestion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,10 +49,10 @@ public class SessionQuestionsFragment extends Fragment implements AdapterQuestio
         layoutManagerSession = new LinearLayoutManager(container.getContext());
         recyclerQuestions.setLayoutManager(layoutManagerSession);
 
-        List<Question> questions = new ArrayList<>();
+        List<ChoicesQuestion> questions = new ArrayList<>();
 
-        Question q1 = new Question("aaaa", new ArrayList<Alternative>());
-        Question q2 = new Question("bbbb", new ArrayList<Alternative>());
+        ChoicesQuestion q1 = new ChoicesQuestion("aaaa", new ArrayList<Alternative>());
+        ChoicesQuestion q2 = new ChoicesQuestion("bbbb", new ArrayList<Alternative>());
 
         questions.add(q1);
         questions.add(q2);
