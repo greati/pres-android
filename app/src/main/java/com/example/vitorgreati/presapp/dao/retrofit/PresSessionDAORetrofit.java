@@ -6,6 +6,7 @@ import com.example.vitorgreati.presapp.model.PresSession;
 import com.example.vitorgreati.presapp.model.Presentation;
 import com.example.vitorgreati.presapp.model.User;
 
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,11 +35,11 @@ public interface PresSessionDAORetrofit {
 
     @POST("sessions/{sessionId}/open")
     @FormUrlEncoded
-    void open(@Path("sessionId") String sessionId, @Field("userId") String userId);
+    Call<Void> open(@Path("sessionId") String sessionId, @Field("userId") String userId, @Field("openingDate") Date openingDate);
 
     @POST("sessions/{sessionId}/close")
     @FormUrlEncoded
-    void close(@Path("sessionId") String sessionId, @Field("userId") String userId);
+    Call<Void> close(@Path("sessionId") String sessionId, @Field("userId") String userId, @Field("closingDate") Date closingDate);
 
     @POST("sessions/{sessionId}/participations/enter")
     @FormUrlEncoded

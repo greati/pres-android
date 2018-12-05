@@ -2,6 +2,7 @@ package com.example.vitorgreati.presapp;
 
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -14,8 +15,14 @@ import android.widget.Toast;
 
 import com.example.vitorgreati.presapp.adapters.DashboardPageAdapter;
 import com.example.vitorgreati.presapp.adapters.SessionManagerPageAdapter;
+import com.example.vitorgreati.presapp.config.AppUtils;
+import com.example.vitorgreati.presapp.dao.impl.PresSessionWebDAO;
 import com.example.vitorgreati.presapp.dialogs.StartSessionDialog;
+import com.example.vitorgreati.presapp.exception.UnauthorizedOperationException;
+import com.example.vitorgreati.presapp.exception.WebException;
 import com.example.vitorgreati.presapp.model.PresSession;
+
+import java.util.Date;
 
 public class SessionManagerActivity extends AppCompatActivity implements StartSessionDialog.OnSessionStartListener {
 
@@ -83,7 +90,38 @@ public class SessionManagerActivity extends AppCompatActivity implements StartSe
 
     @Override
     public void onStartSession() {
-        Intent i = new Intent(this, ActiveSessionPresenterActivity.class);
-        startActivity(i);
+        new OpenSessionAsyncTask().execute(this.session, new Date());
+    }
+
+    private class OpenSessionAsyncTask extends AsyncTask<Object,Void,Void> {
+
+        private Exception e = null;
+
+        @Override
+        protected Void doInBackground(Object... sess) {
+
+            try {
+                PresSessionWebDAO.getInstance().open((PresSession) sess[0], AppUtils.getLoggedUser(SessionManagerActivity.this), (Date) sess[1]);
+            } catch (WebException e) {
+                this.e = e;
+            } catch (UnauthorizedOperationException e1) {
+                this.e = e1;
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (e != null) {
+                Toast.makeText(SessionManagerActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            } else {
+                Intent i = new Intent(SessionManagerActivity.this, ActiveSessionPresenterActivity.class);
+                i.putExtra("session", session);
+                startActivity(i);
+            }
+        }
     }
 }
