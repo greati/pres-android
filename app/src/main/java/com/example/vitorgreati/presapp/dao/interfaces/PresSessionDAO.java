@@ -37,4 +37,6 @@ public interface PresSessionDAO {
 
     List<PresSession> list(Presentation p) throws WebException;
 
+    List<Participation> listParticipations(User u) throws WebException;
+
 }

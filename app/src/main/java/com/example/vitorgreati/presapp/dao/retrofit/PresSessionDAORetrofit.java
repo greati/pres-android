@@ -49,6 +49,9 @@ public interface PresSessionDAORetrofit {
     @FormUrlEncoded
     Call<Void> quit(@Field("sessionId") String sessionId, @Field("userId") String userId) throws UserNotFoundException;
 
+    @GET("users/{userId}/participations")
+    Call<List<Participation>> listParticipations(@Path("userId") String userId);
+
     @GET("presentations/{presId}/sessions")
     Call<List<PresSession>> list(@Path("presId") String presId);
 

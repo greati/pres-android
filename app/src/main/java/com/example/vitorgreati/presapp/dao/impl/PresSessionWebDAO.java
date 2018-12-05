@@ -163,4 +163,22 @@ public class PresSessionWebDAO implements PresSessionDAO {
 
         return null;
     }
+
+    @Override
+    public List<Participation> listParticipations(User u) throws WebException {
+
+        try {
+            Response<List<Participation>> parts = sessionRetrofit.listParticipations(u.getId()).execute();
+
+            if (parts.code() == 200) {
+                return parts.body();
+            }
+            //TODO handle errors
+            else {
+                throw new WebException("Fail to retrieve participation");
+            }
+        } catch (IOException e) {
+            throw new WebException(e);
+        }
+    }
 }

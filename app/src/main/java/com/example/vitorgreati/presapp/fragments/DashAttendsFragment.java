@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.vitorgreati.presapp.ActiveSessionAttendActivity;
 import com.example.vitorgreati.presapp.R;
 import com.example.vitorgreati.presapp.adapters.AdapterDashPres;
+import com.example.vitorgreati.presapp.adapters.AdapterParticipation;
 import com.example.vitorgreati.presapp.adapters.AdapterSession;
 import com.example.vitorgreati.presapp.config.AppUtils;
 import com.example.vitorgreati.presapp.dao.impl.PresSessionWebDAO;
@@ -41,13 +42,15 @@ import java.util.Date;
 import java.util.List;
 
 public class DashAttendsFragment extends Fragment
-        implements AdapterSession.OnItemClickListener, EnterSessionDialog.OnSessionEnterListener {
+        implements AdapterParticipation.OnItemClickListener, EnterSessionDialog.OnSessionEnterListener {
 
     private RecyclerView recyclerSession;
-    private RecyclerView.Adapter adapterSession;
+    private RecyclerView.Adapter adapterParts;
     private RecyclerView.LayoutManager layoutManagerSession;
 
     private DialogStarter dialogStarter;
+
+    private List<Participation> parts;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,21 +114,12 @@ public class DashAttendsFragment extends Fragment
         layoutManagerSession = new LinearLayoutManager(container.getContext());
         recyclerSession.setLayoutManager(layoutManagerSession);
 
-        // create a list for testing
+        parts = new ArrayList<>();
 
-        Presentation p1 = new Presentation("Pres 1", "Desc 1");
-        Presentation p2 = new Presentation("Pres 2", "Desc 2");
+        adapterParts = new AdapterParticipation(parts, getContext(),this);
+        recyclerSession.setAdapter(adapterParts);
 
-        PresSession s1 = new PresSession(new Location("IMD, UFRN", 1.0, 2.0), new Date(), p1);
-        PresSession s2 = new PresSession(new Location("SEBRAE-RN", 1.0, 2.0), new Date(), p2);
-
-
-        List<PresSession> testList = new ArrayList<>();
-        testList.add(s1);
-        testList.add(s2);
-
-        adapterSession = new AdapterSession(testList, this);
-        recyclerSession.setAdapter(adapterSession);
+        new ListAttendsAsyncTask().execute(AppUtils.getLoggedUser(getContext()));
 
         return v;
     }
@@ -170,6 +164,38 @@ public class DashAttendsFragment extends Fragment
                 i.putExtra("part", part);
                 startActivity(i);
             }
+        }
+    }
+
+    private class ListAttendsAsyncTask extends AsyncTask<User, Void, List<Participation>> {
+
+        private Exception e;
+
+        @Override
+        protected List<Participation> doInBackground(User... users) {
+
+            try {
+                List<Participation> parts =
+                        PresSessionWebDAO.getInstance().listParticipations(users[0]);
+                return parts;
+            } catch (WebException e1) {
+                this.e = e1;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(List<Participation> participations) {
+            super.onPostExecute(participations);
+
+            if (e != null){
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            } else {
+                parts.clear();
+                parts.addAll(participations);
+                adapterParts.notifyDataSetChanged();
+            }
+
         }
     }
 
