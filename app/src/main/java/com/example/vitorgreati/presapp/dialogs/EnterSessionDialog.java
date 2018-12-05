@@ -52,7 +52,7 @@ public class EnterSessionDialog extends DialogFragment {
         btEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onEnterSession();
+                listener.onEnterSession(edtSessionCode.getText().toString());
             }
         });
 
@@ -70,6 +70,6 @@ public class EnterSessionDialog extends DialogFragment {
     }
 
     public interface OnSessionEnterListener {
-        void onEnterSession();
+        void onEnterSession(String sessionCode);
     }
 }

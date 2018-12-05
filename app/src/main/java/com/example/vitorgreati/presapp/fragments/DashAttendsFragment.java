@@ -3,6 +3,7 @@ package com.example.vitorgreati.presapp.fragments;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,10 +23,16 @@ import android.widget.Toast;
 import com.example.vitorgreati.presapp.ActiveSessionAttendActivity;
 import com.example.vitorgreati.presapp.R;
 import com.example.vitorgreati.presapp.adapters.AdapterDashPres;
+import com.example.vitorgreati.presapp.adapters.AdapterParticipation;
 import com.example.vitorgreati.presapp.adapters.AdapterSession;
+import com.example.vitorgreati.presapp.config.AppUtils;
+import com.example.vitorgreati.presapp.dao.impl.PresSessionWebDAO;
 import com.example.vitorgreati.presapp.dialogs.EnterSessionDialog;
+import com.example.vitorgreati.presapp.exception.UserNotFoundException;
+import com.example.vitorgreati.presapp.exception.WebException;
 import com.example.vitorgreati.presapp.interfaces.DialogStarter;
 import com.example.vitorgreati.presapp.model.Location;
+import com.example.vitorgreati.presapp.model.Participation;
 import com.example.vitorgreati.presapp.model.PresSession;
 import com.example.vitorgreati.presapp.model.Presentation;
 import com.example.vitorgreati.presapp.model.User;
@@ -35,13 +42,15 @@ import java.util.Date;
 import java.util.List;
 
 public class DashAttendsFragment extends Fragment
-        implements AdapterSession.OnItemClickListener, EnterSessionDialog.OnSessionEnterListener {
+        implements AdapterParticipation.OnItemClickListener, EnterSessionDialog.OnSessionEnterListener {
 
     private RecyclerView recyclerSession;
-    private RecyclerView.Adapter adapterSession;
+    private RecyclerView.Adapter adapterParts;
     private RecyclerView.LayoutManager layoutManagerSession;
 
     private DialogStarter dialogStarter;
+
+    private List<Participation> parts;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,21 +114,12 @@ public class DashAttendsFragment extends Fragment
         layoutManagerSession = new LinearLayoutManager(container.getContext());
         recyclerSession.setLayoutManager(layoutManagerSession);
 
-        // create a list for testing
+        parts = new ArrayList<>();
 
-        Presentation p1 = new Presentation("Pres 1", "Desc 1");
-        Presentation p2 = new Presentation("Pres 2", "Desc 2");
+        adapterParts = new AdapterParticipation(parts, getContext(),this);
+        recyclerSession.setAdapter(adapterParts);
 
-        PresSession s1 = new PresSession(new Location("IMD, UFRN", 1.0, 2.0), new Date(), p1);
-        PresSession s2 = new PresSession(new Location("SEBRAE-RN", 1.0, 2.0), new Date(), p2);
-
-
-        List<PresSession> testList = new ArrayList<>();
-        testList.add(s1);
-        testList.add(s2);
-
-        adapterSession = new AdapterSession(testList, this);
-        recyclerSession.setAdapter(adapterSession);
+        new ListAttendsAsyncTask().execute(AppUtils.getLoggedUser(getContext()));
 
         return v;
     }
@@ -130,11 +130,73 @@ public class DashAttendsFragment extends Fragment
     }
 
     @Override
-    public void onEnterSession() {
+    public void onEnterSession(String sessionCode) {
+        new EnterSessionAsyncTask().execute(sessionCode);
+    }
 
-        Intent i = new Intent(getActivity(), ActiveSessionAttendActivity.class);
-        startActivity(i);
+    private class EnterSessionAsyncTask extends AsyncTask<String, Void, Participation> {
 
+        private Exception e;
+
+        @Override
+        protected Participation doInBackground(String... strings) {
+
+            String sessionCode = strings[0];
+
+            try {
+                return PresSessionWebDAO.getInstance().participate(sessionCode, AppUtils.getLoggedUser(getContext()));
+            } catch (UserNotFoundException | WebException e) {
+                e.printStackTrace();
+                this.e = e;
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Participation part) {
+            super.onPostExecute(part);
+
+            if (e != null) {
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            } else {
+                Intent i = new Intent(getActivity(), ActiveSessionAttendActivity.class);
+                i.putExtra("part", part);
+                startActivity(i);
+            }
+        }
+    }
+
+    private class ListAttendsAsyncTask extends AsyncTask<User, Void, List<Participation>> {
+
+        private Exception e;
+
+        @Override
+        protected List<Participation> doInBackground(User... users) {
+
+            try {
+                List<Participation> parts =
+                        PresSessionWebDAO.getInstance().listParticipations(users[0]);
+                return parts;
+            } catch (WebException e1) {
+                this.e = e1;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(List<Participation> participations) {
+            super.onPostExecute(participations);
+
+            if (e != null){
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            } else {
+                parts.clear();
+                parts.addAll(participations);
+                adapterParts.notifyDataSetChanged();
+            }
+
+        }
     }
 
 }
