@@ -100,13 +100,40 @@ public class PresSessionWebDAO implements PresSessionDAO {
     }
 
     @Override
-    public Participation participate(PresSession s, User u) throws UserNotFoundException {
-        return null;
+    public Participation participate(String s, User u) throws UserNotFoundException, WebException {
+
+        try {
+            Response<Participation> resp = sessionRetrofit.participate(s, u.getId()).execute();
+
+            if (resp.code() == 200) {
+                return resp.body();
+            }
+            //TODO more error handling
+            else {
+                throw new WebException("Operation failed");
+            }
+
+        } catch (IOException e) {
+            throw new WebException(e);
+        }
     }
 
     @Override
-    public Participation quit(PresSession s, User u) throws UserNotFoundException {
-        return null;
+    public Participation quit(String s, User u) throws UserNotFoundException, WebException {
+        try {
+            Response<Void> resp = sessionRetrofit.quit(s, u.getId()).execute();
+
+            if (resp.code() == 200) {
+                return null;
+            }
+            //TODO more error handling
+            else {
+                throw new WebException("Operation failed");
+            }
+
+        } catch (IOException e) {
+            throw new WebException(e);
+        }
     }
 
     @Override
@@ -135,5 +162,23 @@ public class PresSessionWebDAO implements PresSessionDAO {
         }
 
         return null;
+    }
+
+    @Override
+    public List<Participation> listParticipations(User u) throws WebException {
+
+        try {
+            Response<List<Participation>> parts = sessionRetrofit.listParticipations(u.getId()).execute();
+
+            if (parts.code() == 200) {
+                return parts.body();
+            }
+            //TODO handle errors
+            else {
+                throw new WebException("Fail to retrieve participation");
+            }
+        } catch (IOException e) {
+            throw new WebException(e);
+        }
     }
 }

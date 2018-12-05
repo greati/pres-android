@@ -61,9 +61,9 @@ public class PresSessionsManFragment extends Fragment implements AdapterSession.
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.dash_attends_fragment, container, false);
+        View v = inflater.inflate(R.layout.dash_sessions_fragment, container, false);
 
-        recyclerSession = v.findViewById(R.id.recyclerDashAttends);
+        recyclerSession = v.findViewById(R.id.recyclerDashSessions);
 
         recyclerSession.setHasFixedSize(true);
 

@@ -7,37 +7,14 @@
     android:paddingVertical="10dp"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:textSize="16sp"
-            android:id="@+id/tvPresTitle"
-            android:layout_weight="5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Sample"
-            android:textStyle="bold"
-            android:textColor="#000"
-            />
-        <TextView
-            android:id="@+id/tvActive"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@android:color/holo_green_dark"
-            />
-    </LinearLayout>
-
     <TextView
-        android:id="@+id/tvAuthorName"
-        android:textSize="14sp"
-        android:maxLength="50"
+        android:textSize="16sp"
+        android:id="@+id/tvPresTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Testing Testing Testing Testing \nTesting Testing Testing Testing "/>
+        android:text="Sample"
+        android:textStyle="bold"
+        android:textColor="#000"/>
     <TextView
         android:id="@+id/tvLocal"
         android:textSize="14sp"
@@ -52,6 +29,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Testing Testing Testing Testing \nTesting Testing Testing Testing "/>
-
 
 </LinearLayout>
