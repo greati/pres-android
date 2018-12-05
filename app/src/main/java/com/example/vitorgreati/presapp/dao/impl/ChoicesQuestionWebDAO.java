@@ -57,13 +57,38 @@ public class ChoicesQuestionWebDAO implements ChoicesQuestionDAO {
     }
 
     @Override
-    public void open(User u, ChoicesQuestion q) {
+    public Boolean open(User u, ChoicesQuestion q) throws WebException {
 
+        try {
+            Response<Boolean> question = choicesQuestionRetrofit.open(u.getId(), q.getId()).execute();
+
+            if (question.code() == 200){
+                return true;
+            }
+            //TODO improve error
+            else {
+                throw new WebException("Fail to open");
+            }
+        } catch (IOException e) {
+            throw new WebException(e);
+        }
     }
 
     @Override
-    public void close(User u, ChoicesQuestion q) {
+    public Boolean close(User u, ChoicesQuestion q) throws WebException {
+        try {
+            Response<Boolean> question = choicesQuestionRetrofit.close(u.getId(), q.getId()).execute();
 
+            if (question.code() == 200){
+                return true;
+            }
+            //TODO improve error
+            else {
+                throw new WebException("Fail to open");
+            }
+        } catch (IOException e) {
+            throw new WebException(e);
+        }
     }
 
     @Override

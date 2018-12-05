@@ -29,7 +29,7 @@ public interface PresSessionDAO {
 
     Participation participate(String code, User u) throws UserNotFoundException, WebException;
 
-    Participation quit(String code, User u) throws UserNotFoundException, WebException;
+    Participation quit(String sessionId, User u) throws UserNotFoundException, WebException;
 
     PresSession read(PresSession s);
 

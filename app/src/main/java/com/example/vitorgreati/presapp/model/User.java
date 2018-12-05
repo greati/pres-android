@@ -13,6 +13,8 @@ import java.util.Date;
  */
 public class User implements Serializable {
 
+    private transient String googleToken;
+
     @SerializedName("_id")
     @Expose
     private String id;
@@ -71,6 +73,14 @@ public class User implements Serializable {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getGoogleToken() {
+        return googleToken;
+    }
+
+    public void setGoogleToken(String googleToken) {
+        this.googleToken = googleToken;
     }
 
 }

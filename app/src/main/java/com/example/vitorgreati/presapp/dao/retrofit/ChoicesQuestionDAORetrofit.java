@@ -27,11 +27,13 @@ public interface ChoicesQuestionDAORetrofit {
     @DELETE("sessions/{sessionId}/questions")
     void delete(@Body ChoicesQuestion q);
 
-    @POST("sessions/{sessionId}/questions/{questionId}/open")
-    void open(@Path("sessionId") String sessionId, @Path("questionId") String questionId);
+    @POST("questions/{questionId}/open")
+    @FormUrlEncoded
+    Call<Boolean> open(@Field("userId") String userId, @Path("questionId") String questionId);
 
-    @POST("sessions/{sessionId}/questions/{questionId}/close")
-    void close(@Path("sessionId") String sessionId, @Path("questionId") String questionId);
+    @POST("questions/{questionId}/close")
+    @FormUrlEncoded
+    Call<Boolean> close(@Field("userId") String userId, @Path("questionId") String questionId);
 
     @GET("sessions/{sessionId}/questions")
     Call<List<ChoicesQuestion>> list(@Path("sessionId") String sessionId);
