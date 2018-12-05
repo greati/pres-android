@@ -17,7 +17,7 @@ public class AdapterSession extends RecyclerView.Adapter<AdapterSession.ViewHold
 
     private List<PresSession> sessions;
 
-    private static OnItemClickListener itemClickListener;
+    private final OnItemClickListener itemClickListener;
 
     public AdapterSession(List<PresSession> sessions, OnItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
@@ -50,7 +50,7 @@ public class AdapterSession extends RecyclerView.Adapter<AdapterSession.ViewHold
         return sessions.size();
     }
 
-    protected static class ViewHolder extends RecyclerView.ViewHolder {
+    protected class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tvPresTitle;
         public TextView tvLocal;

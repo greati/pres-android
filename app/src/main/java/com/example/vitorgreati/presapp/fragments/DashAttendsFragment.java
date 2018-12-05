@@ -3,6 +3,7 @@ package com.example.vitorgreati.presapp.fragments;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,9 +24,14 @@ import com.example.vitorgreati.presapp.ActiveSessionAttendActivity;
 import com.example.vitorgreati.presapp.R;
 import com.example.vitorgreati.presapp.adapters.AdapterDashPres;
 import com.example.vitorgreati.presapp.adapters.AdapterSession;
+import com.example.vitorgreati.presapp.config.AppUtils;
+import com.example.vitorgreati.presapp.dao.impl.PresSessionWebDAO;
 import com.example.vitorgreati.presapp.dialogs.EnterSessionDialog;
+import com.example.vitorgreati.presapp.exception.UserNotFoundException;
+import com.example.vitorgreati.presapp.exception.WebException;
 import com.example.vitorgreati.presapp.interfaces.DialogStarter;
 import com.example.vitorgreati.presapp.model.Location;
+import com.example.vitorgreati.presapp.model.Participation;
 import com.example.vitorgreati.presapp.model.PresSession;
 import com.example.vitorgreati.presapp.model.Presentation;
 import com.example.vitorgreati.presapp.model.User;
@@ -130,11 +136,41 @@ public class DashAttendsFragment extends Fragment
     }
 
     @Override
-    public void onEnterSession() {
+    public void onEnterSession(String sessionCode) {
+        new EnterSessionAsyncTask().execute(sessionCode);
+    }
 
-        Intent i = new Intent(getActivity(), ActiveSessionAttendActivity.class);
-        startActivity(i);
+    private class EnterSessionAsyncTask extends AsyncTask<String, Void, Participation> {
 
+        private Exception e;
+
+        @Override
+        protected Participation doInBackground(String... strings) {
+
+            String sessionCode = strings[0];
+
+            try {
+                return PresSessionWebDAO.getInstance().participate(sessionCode, AppUtils.getLoggedUser(getContext()));
+            } catch (UserNotFoundException | WebException e) {
+                e.printStackTrace();
+                this.e = e;
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Participation part) {
+            super.onPostExecute(part);
+
+            if (e != null) {
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            } else {
+                Intent i = new Intent(getActivity(), ActiveSessionAttendActivity.class);
+                i.putExtra("part", part);
+                startActivity(i);
+            }
+        }
     }
 
 }

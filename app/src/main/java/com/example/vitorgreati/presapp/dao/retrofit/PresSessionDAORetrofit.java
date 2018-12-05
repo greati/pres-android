@@ -41,13 +41,13 @@ public interface PresSessionDAORetrofit {
     @FormUrlEncoded
     Call<Void> close(@Path("sessionId") String sessionId, @Field("userId") String userId, @Field("closingDate") Date closingDate);
 
-    @POST("sessions/{sessionId}/participations/enter")
+    @POST("sessions/participations/enter")
     @FormUrlEncoded
-    Call<Participation> participate(@Path("sessionId") String sessionId, @Field("userId") String userId) throws UserNotFoundException;
+    Call<Participation> participate(@Field("sessionCode") String sessionCode, @Field("userId") String userId) throws UserNotFoundException;
 
-    @POST("sessions/{sessionId}/participations/quit")
+    @POST("sessions/participations/quit")
     @FormUrlEncoded
-    Call<Participation> quit(@Path("sessionId") String sessionId, @Field("userId") String userId) throws UserNotFoundException;
+    Call<Void> quit(@Field("sessionId") String sessionId, @Field("userId") String userId) throws UserNotFoundException;
 
     @GET("presentations/{presId}/sessions")
     Call<List<PresSession>> list(@Path("presId") String presId);
