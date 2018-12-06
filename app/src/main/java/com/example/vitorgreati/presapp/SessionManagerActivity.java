@@ -50,7 +50,8 @@ public class SessionManagerActivity extends AppCompatActivity implements StartSe
             @Override
             public boolean onMenuItemClick(MenuItem item) {
 
-                StartSessionDialog dialog = new StartSessionDialog();
+                //StartSessionDialog dialog = new StartSessionDialog();
+                StartSessionDialog dialog = StartSessionDialog.newInstance(session);
                 dialog.show(getSupportFragmentManager(), "OpenSession");
 
                 return true;

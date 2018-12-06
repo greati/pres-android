@@ -11,6 +11,7 @@ import com.example.vitorgreati.presapp.model.Participation;
 import com.example.vitorgreati.presapp.model.PresSession;
 import com.example.vitorgreati.presapp.model.Presentation;
 import com.example.vitorgreati.presapp.model.User;
+import com.example.vitorgreati.presapp.services.PresFirebaseMessagingService;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.IOException;
@@ -102,10 +103,10 @@ public class PresSessionWebDAO implements PresSessionDAO {
     }
 
     @Override
-    public Participation participate(String s, User u) throws UserNotFoundException, WebException {
+    public Participation participate(String s, User u, String userToken) throws UserNotFoundException, WebException {
 
         try {
-            Response<Participation> resp = sessionRetrofit.participate(s, u.getId(), AppUtils.getFirebaseToken()).execute();
+            Response<Participation> resp = sessionRetrofit.participate(s, u.getId(), userToken).execute();
 
             if (resp.code() == 200) {
                 return resp.body();
@@ -121,9 +122,9 @@ public class PresSessionWebDAO implements PresSessionDAO {
     }
 
     @Override
-    public Participation quit(String s, User u) throws UserNotFoundException, WebException {
+    public Participation quit(String s, User u, String userToken) throws UserNotFoundException, WebException {
         try {
-            Response<Void> resp = sessionRetrofit.quit(s, u.getId(), AppUtils.getFirebaseToken()).execute();
+            Response<Void> resp = sessionRetrofit.quit(s, u.getId(), userToken).execute();
 
             if (resp.code() == 200) {
                 return null;

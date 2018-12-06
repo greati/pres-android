@@ -27,9 +27,9 @@ public interface PresSessionDAO {
 
     void close(PresSession s, User u, Date closingDate) throws WebException, UnauthorizedOperationException;
 
-    Participation participate(String code, User u) throws UserNotFoundException, WebException;
+    Participation participate(String code, User u, String token) throws UserNotFoundException, WebException;
 
-    Participation quit(String sessionId, User u) throws UserNotFoundException, WebException;
+    Participation quit(String sessionId, User u, String token) throws UserNotFoundException, WebException;
 
     PresSession read(PresSession s);
 

@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.vitorgreati.presapp.R;
+import com.example.vitorgreati.presapp.model.PresSession;
 
 public class EnterSessionDialog extends DialogFragment {
 
@@ -22,6 +23,21 @@ public class EnterSessionDialog extends DialogFragment {
     private Button btEnter, btCancel;
 
     private OnSessionEnterListener listener;
+
+    public static EnterSessionDialog newInstance(PresSession session){
+        EnterSessionDialog dialog = new EnterSessionDialog();
+
+        Bundle args = new Bundle();
+        args.putSerializable("session", session);
+        dialog.setArguments(args);
+
+        return dialog;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -41,7 +57,7 @@ public class EnterSessionDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Start a session");
+        builder.setTitle("Enter a session");
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.enter_session_dialog, null);

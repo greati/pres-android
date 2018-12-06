@@ -15,6 +15,7 @@ import com.example.vitorgreati.presapp.dao.impl.PresSessionWebDAO;
 import com.example.vitorgreati.presapp.exception.UserNotFoundException;
 import com.example.vitorgreati.presapp.exception.WebException;
 import com.example.vitorgreati.presapp.model.Participation;
+import com.example.vitorgreati.presapp.services.PresFirebaseMessagingService;
 
 import java.util.Date;
 
@@ -67,7 +68,7 @@ public class ActiveSessionAttendActivity extends AppCompatActivity {
         protected Void doInBackground(String... strings) {
 
             try {
-                PresSessionWebDAO.getInstance().quit(strings[0], AppUtils.getLoggedUser(ActiveSessionAttendActivity.this));
+                PresSessionWebDAO.getInstance().quit(strings[0], AppUtils.getLoggedUser(ActiveSessionAttendActivity.this), PresFirebaseMessagingService.getToken(ActiveSessionAttendActivity.this));
             } catch (UserNotFoundException | WebException e1) {
                 this.e = e1;
                 e1.printStackTrace();

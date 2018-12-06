@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.vitorgreati.presapp.R;
+import com.example.vitorgreati.presapp.model.PresSession;
 
 public class StartSessionDialog extends DialogFragment {
 
@@ -20,6 +21,18 @@ public class StartSessionDialog extends DialogFragment {
     private Button btEnter, btCancel;
 
     private OnSessionStartListener listener;
+
+    private PresSession session;
+
+    public static StartSessionDialog newInstance(PresSession session){
+        StartSessionDialog dialog = new StartSessionDialog();
+
+        Bundle args = new Bundle();
+        args.putSerializable("session", session);
+        dialog.setArguments(args);
+
+        return dialog;
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -29,6 +42,13 @@ public class StartSessionDialog extends DialogFragment {
         } catch (Exception e) {
             throw new ClassCastException("Pass a OnSessionStartListener");
         }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        this.session = (PresSession) getArguments().getSerializable("session");
     }
 
     @NonNull
@@ -41,6 +61,7 @@ public class StartSessionDialog extends DialogFragment {
         View v = inflater.inflate(R.layout.start_session_dialog, null);
 
         tvSessionCode = v.findViewById(R.id.tvSessionCode);
+        tvSessionCode.setText(this.session.getCode());
 
         btEnter = v.findViewById(R.id.btStartSession);
         btEnter.setOnClickListener(new View.OnClickListener() {
