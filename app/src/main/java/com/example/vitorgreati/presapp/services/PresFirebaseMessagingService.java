@@ -13,9 +13,11 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class PresFirebaseMessagingService extends FirebaseMessagingService {
 
-    private final LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
 
     public static final String OPEN_QUESTION_ACTION = "com.example.vitorgreati.presapp.OPEN_QUESTION_ACTION";
+
+    public PresFirebaseMessagingService() {
+    }
 
     @Override
     public void onDeletedMessages() {
@@ -32,14 +34,14 @@ public class PresFirebaseMessagingService extends FirebaseMessagingService {
                 case "open_question":
                     Intent i = new Intent(OPEN_QUESTION_ACTION);
                     i.putExtra("question_id",remoteMessage.getData().get("question_id"));
-                    localBroadcastManager.sendBroadcast(i);
+                    LocalBroadcastManager.getInstance(this).sendBroadcast(i);
                     break;
             }
 
         }
 
 
-        Log.d("pres","Mensagem recebida!");
+        Log.i("pres","Mensagem recebida!");
 
     }
 

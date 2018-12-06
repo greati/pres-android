@@ -5,12 +5,18 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class PresSession implements Serializable {
 
     @SerializedName("_id")
     @Expose
     private String id;
+
+
+    @SerializedName("questions")
+    @Expose
+    private List<ChoicesQuestion> questions;
 
     @SerializedName("code")
     @Expose
@@ -98,5 +104,15 @@ public class PresSession implements Serializable {
 
     public void setPresentation(Presentation presentation) {
         this.presentation = presentation;
+    }
+
+
+
+    public List<ChoicesQuestion> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<ChoicesQuestion> questions) {
+        this.questions = questions;
     }
 }

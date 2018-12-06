@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Participation implements Serializable {
 
@@ -60,4 +61,5 @@ public class Participation implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
 }

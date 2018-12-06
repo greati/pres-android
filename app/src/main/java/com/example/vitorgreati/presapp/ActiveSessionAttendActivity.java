@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,17 +17,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vitorgreati.presapp.config.AppUtils;
+import com.example.vitorgreati.presapp.dao.impl.ChoicesQuestionWebDAO;
 import com.example.vitorgreati.presapp.dao.impl.PresSessionWebDAO;
 import com.example.vitorgreati.presapp.exception.UserNotFoundException;
 import com.example.vitorgreati.presapp.exception.WebException;
+import com.example.vitorgreati.presapp.fragments.ChoiceQuestionFragment;
+import com.example.vitorgreati.presapp.model.ChoicesQuestion;
 import com.example.vitorgreati.presapp.model.Participation;
+import com.example.vitorgreati.presapp.model.PresSession;
 import com.example.vitorgreati.presapp.services.PresFirebaseMessagingService;
 
 import java.util.Date;
+import java.util.List;
 
 public class ActiveSessionAttendActivity extends AppCompatActivity {
 
     private Participation participation;
+
     private TextView tvSessionName;
 
     @Override
@@ -46,6 +54,19 @@ public class ActiveSessionAttendActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String msg = intent.getStringExtra("question_id");
+
+                for (ChoicesQuestion q : participation.getSession().getQuestions()) {
+
+                    if (q.getId().equals(msg)) {
+
+                        FragmentManager fragMan = getSupportFragmentManager();
+                        FragmentTransaction ftran = fragMan.beginTransaction();
+                        ftran.replace(R.id.fragDynAreaSession, ChoiceQuestionFragment.newInstance(q));
+                        ftran.commit();
+                        break;
+
+                    }
+                }
                 Toast.makeText(ActiveSessionAttendActivity.this, msg, Toast.LENGTH_LONG).show();
             }
         }, new IntentFilter(PresFirebaseMessagingService.OPEN_QUESTION_ACTION));
@@ -99,4 +120,5 @@ public class ActiveSessionAttendActivity extends AppCompatActivity {
             }
         }
     }
+
 }
