@@ -60,7 +60,7 @@ public class ChoicesQuestionWebDAO implements ChoicesQuestionDAO {
     public Boolean open(User u, ChoicesQuestion q) throws WebException {
 
         try {
-            Response<Boolean> question = choicesQuestionRetrofit.open(u.getId(), q.getId()).execute();
+            Response<ChoicesQuestion> question = choicesQuestionRetrofit.open(u.getId(), q.getId()).execute();
 
             if (question.code() == 200){
                 return true;
@@ -77,7 +77,7 @@ public class ChoicesQuestionWebDAO implements ChoicesQuestionDAO {
     @Override
     public Boolean close(User u, ChoicesQuestion q) throws WebException {
         try {
-            Response<Boolean> question = choicesQuestionRetrofit.close(u.getId(), q.getId()).execute();
+            Response<ChoicesQuestion> question = choicesQuestionRetrofit.close(u.getId(), q.getId()).execute();
 
             if (question.code() == 200){
                 return true;
@@ -113,7 +113,21 @@ public class ChoicesQuestionWebDAO implements ChoicesQuestionDAO {
     }
 
     @Override
-    public ChoicesAnswer answer(User u, ChoicesAnswer answer) {
-        return null;
+    public ChoicesAnswer answer(User u, ChoicesAnswer answer) throws WebException {
+
+        try {
+            Response<ChoicesAnswer> answerResp = choicesQuestionRetrofit.answer(answer).execute();
+
+            if (answerResp.code() == 200) {
+                return answerResp.body();
+            }else {
+                //TODO better error handling
+                throw new WebException(answerResp.message());
+            }
+
+        } catch (IOException e) {
+            throw new WebException(e);
+        }
+
     }
 }

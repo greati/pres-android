@@ -6,12 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.vitorgreati.presapp.adapters.AdapterQuestionSessionActive;
 import com.example.vitorgreati.presapp.config.AppUtils;
+import com.example.vitorgreati.presapp.dao.impl.ChoicesQuestionWebDAO;
 import com.example.vitorgreati.presapp.dao.impl.PresSessionWebDAO;
 import com.example.vitorgreati.presapp.dialogs.StartSessionDialog;
 import com.example.vitorgreati.presapp.exception.UnauthorizedOperationException;
@@ -59,24 +61,26 @@ public class ActiveSessionPresenterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active_session_presenter);
 
-        rvQuestions = findViewById(R.id.rvQuestions);
-
-        layoutManager = new LinearLayoutManager(this);
-        rvQuestions.setLayoutManager(layoutManager);
-
-        List<ChoicesQuestion> questions = new ArrayList<>();
-        questions.add(new ChoicesQuestion("Question 1", null));
-        questions.add(new ChoicesQuestion("Question 2", null));
-
-        adapter = new AdapterQuestionSessionActive(questions);
-
         Intent i = getIntent();
 
         if (i != null) {
             this.session = (PresSession) i.getSerializableExtra("session");
         }
 
+        rvQuestions = findViewById(R.id.rvQuestions);
+
+        layoutManager = new LinearLayoutManager(this);
+        rvQuestions.setLayoutManager(layoutManager);
+
+        //List<ChoicesQuestion> questions = new ArrayList<>();
+        //questions.add(new ChoicesQuestion("Question 1", null));
+        //questions.add(new ChoicesQuestion("Question 2", null));
+
+        adapter = new AdapterQuestionSessionActive(session.getQuestions(), this);
+
         rvQuestions.setAdapter(adapter);
+
+        new ListQuestionsAsyncTask().execute(session);
 
     }
 
@@ -109,4 +113,31 @@ public class ActiveSessionPresenterActivity extends AppCompatActivity {
             }
         }
     }
-}
+
+    private class ListQuestionsAsyncTask extends AsyncTask<PresSession, Void, List<ChoicesQuestion>> {
+
+        private Exception e;
+
+        @Override
+        protected List<ChoicesQuestion> doInBackground(PresSession... presSessions) {
+            try {
+                List<ChoicesQuestion> questions = ChoicesQuestionWebDAO.getInstance().list(presSessions[0]);
+                Log.i("pres", ""+questions.size());
+                return questions;
+            } catch (WebException e) {
+                this.e = e;
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(List<ChoicesQuestion> choicesQuestions) {
+            super.onPostExecute(choicesQuestions);
+
+            session.getQuestions().clear();
+            session.getQuestions().addAll(choicesQuestions);
+            adapter.notifyDataSetChanged();
+
+        }
+    }
+ }

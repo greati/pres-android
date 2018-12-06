@@ -21,7 +21,7 @@ public class AdapterChoiceCheck extends ArrayAdapter<Alternative> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Alternative a = getItem(position);
+        final Alternative a = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext())
@@ -29,6 +29,14 @@ public class AdapterChoiceCheck extends ArrayAdapter<Alternative> {
         }
 
         CheckBox cb = convertView.findViewById(R.id.cbAlternative);
+
+        cb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox cb = (CheckBox) v;
+                a.setChecked(cb.isChecked());
+            }
+        });
 
         cb.setText(a.getText());
 

@@ -9,6 +9,18 @@ import java.util.List;
 
 public class Participation implements Serializable {
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @SerializedName("_id")
+    @Expose
+    private String id;
+
     @SerializedName("participation_date")
     @Expose
     private Date participationDate;

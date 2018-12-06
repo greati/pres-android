@@ -28,5 +28,5 @@ public interface ChoicesQuestionDAO {
 
     ChoicesQuestion read(ChoicesQuestion q);
 
-    ChoicesAnswer answer(User u, ChoicesAnswer answer);
+    ChoicesAnswer answer(User u, ChoicesAnswer answer) throws WebException;
 }

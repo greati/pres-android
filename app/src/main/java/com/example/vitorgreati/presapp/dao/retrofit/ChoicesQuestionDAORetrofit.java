@@ -29,11 +29,11 @@ public interface ChoicesQuestionDAORetrofit {
 
     @POST("questions/{questionId}/open")
     @FormUrlEncoded
-    Call<Boolean> open(@Field("userId") String userId, @Path("questionId") String questionId);
+    Call<ChoicesQuestion> open(@Field("userId") String userId, @Path("questionId") String questionId);
 
     @POST("questions/{questionId}/close")
     @FormUrlEncoded
-    Call<Boolean> close(@Field("userId") String userId, @Path("questionId") String questionId);
+    Call<ChoicesQuestion> close(@Field("userId") String userId, @Path("questionId") String questionId);
 
     @GET("sessions/{sessionId}/questions")
     Call<List<ChoicesQuestion>> list(@Path("sessionId") String sessionId);
@@ -41,7 +41,6 @@ public interface ChoicesQuestionDAORetrofit {
     @POST("sessions/{sessionId}/questions/{questionId}")
     Call<ChoicesQuestion> get(@Path("questionId") String questionId);
 
-    @POST("sessions/{sessionId}/questions/{questionId}")
-    @FormUrlEncoded
-    Call<ChoicesAnswer> answer(@Path("questionId") String questionId, @Field("userId") String userId);
+    @POST("questions/answers")
+    Call<ChoicesAnswer> answer(@Body ChoicesAnswer answer);
 }
