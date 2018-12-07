@@ -36,6 +36,7 @@ import com.example.vitorgreati.presapp.model.Participation;
 import com.example.vitorgreati.presapp.model.PresSession;
 import com.example.vitorgreati.presapp.model.Presentation;
 import com.example.vitorgreati.presapp.model.User;
+import com.example.vitorgreati.presapp.services.PresFirebaseMessagingService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -144,7 +145,7 @@ public class DashAttendsFragment extends Fragment
             String sessionCode = strings[0];
 
             try {
-                return PresSessionWebDAO.getInstance().participate(sessionCode, AppUtils.getLoggedUser(getContext()));
+                return PresSessionWebDAO.getInstance().participate(sessionCode, AppUtils.getLoggedUser(getContext()), PresFirebaseMessagingService.getToken(getContext()));
             } catch (UserNotFoundException | WebException e) {
                 e.printStackTrace();
                 this.e = e;

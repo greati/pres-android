@@ -11,9 +11,10 @@ public class RetrofitProvider {
 
     private RetrofitProvider() {
         retrofit = new Retrofit.Builder()
-                //.baseUrl("http://pres-api.vitorgreati.webfactional.com")
+                .baseUrl("http://pres-api.vitorgreati.webfactional.com")
                 //.baseUrl("http://10.0.2.2:3000")
-                .baseUrl("http://10.0.0.105:3000")
+                //.baseUrl("http://10.0.0.105:3000")
+                //.baseUrl("http://192.168.0.146:3000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

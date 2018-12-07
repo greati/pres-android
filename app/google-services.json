@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "406188265404",
+    "firebase_url": "https://pres-ae33c.firebaseio.com",
+    "project_id": "pres-ae33c",
+    "storage_bucket": "pres-ae33c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406188265404:android:ae84feb9e2677e75",
+        "android_client_info": {
+          "package_name": "com.example.vitorgreati.presapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406188265404-j6lagquvbm2qopvnap5djr7u7idpa4ml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiP9ZaIX_-NSKlx8BgrbF16k4DHLPzYuc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,8 +5,13 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.example.vitorgreati.presapp.model.User;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class AppUtils {
+
+    public synchronized static String getFirebaseToken() {
+        return FirebaseInstanceId.getInstance().getInstanceId().toString();
+    }
 
     public synchronized static User getLoggedUser(Context ctx) {
 

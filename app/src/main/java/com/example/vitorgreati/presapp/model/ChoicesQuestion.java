@@ -9,6 +9,11 @@ import java.util.List;
 
 public class ChoicesQuestion implements Serializable {
 
+
+    @SerializedName("_id")
+    @Expose
+    private String id;
+
     @SerializedName("title")
     @Expose
     private String title;
@@ -62,5 +67,13 @@ public class ChoicesQuestion implements Serializable {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

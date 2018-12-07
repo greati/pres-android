@@ -8,6 +8,10 @@ import java.util.List;
 
 public class ChoicesAnswer {
 
+    @SerializedName("_id")
+    @Expose
+    private String id;
+
     @SerializedName("question")
     @Expose
     private ChoicesQuestion question;
@@ -25,6 +29,15 @@ public class ChoicesAnswer {
         this.creationDate = creationDate;
         this.choices = choices;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 
     public ChoicesQuestion getQuestion() {
         return question;

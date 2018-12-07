@@ -5,8 +5,21 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Participation implements Serializable {
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @SerializedName("_id")
+    @Expose
+    private String id;
 
     @SerializedName("participation_date")
     @Expose
@@ -60,4 +73,5 @@ public class Participation implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
 }

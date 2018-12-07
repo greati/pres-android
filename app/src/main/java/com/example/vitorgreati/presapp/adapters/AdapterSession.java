@@ -32,7 +32,7 @@ public class AdapterSession extends RecyclerView.Adapter<AdapterSession.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.dash_attends_item, viewGroup, false);
+                .inflate(R.layout.dash_sessions_item, viewGroup, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }

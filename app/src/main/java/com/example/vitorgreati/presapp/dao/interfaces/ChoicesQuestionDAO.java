@@ -20,13 +20,13 @@ public interface ChoicesQuestionDAO {
 
     void delete(ChoicesQuestion q);
 
-    void open(User u, ChoicesQuestion q);
+    Boolean open(User u, ChoicesQuestion q) throws WebException;
 
-    void close(User u, ChoicesQuestion q);
+    Boolean close(User u, ChoicesQuestion q) throws WebException;
 
     List<ChoicesQuestion> list(PresSession s) throws WebException;
 
     ChoicesQuestion read(ChoicesQuestion q);
 
-    ChoicesAnswer answer(User u, ChoicesAnswer answer);
+    ChoicesAnswer answer(User u, ChoicesAnswer answer) throws WebException;
 }
