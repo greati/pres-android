@@ -21,7 +21,7 @@ public class PresEditFragment extends Fragment {
 
     private EditText edtTitle, edtDescription;
 
-    private Button btnCreate;
+    private Button btnCreate, btnCancel;
 
     public static Fragment newInstance(Presentation p) {
         Fragment instance = new PresEditFragment();
@@ -49,11 +49,15 @@ public class PresEditFragment extends Fragment {
         edtDescription = v.findViewById(R.id.edtDescription);
         edtDescription.setText(pres.getDescription());
 
+        btnCancel = v.findViewById(R.id.btnCancel);
+        btnCancel.setVisibility(View.INVISIBLE);
+
         btnCreate = v.findViewById(R.id.btnConfirm);
+        btnCreate.setText("Save");
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Should save", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Not yet supported.", Toast.LENGTH_LONG).show();
             }
         });
 

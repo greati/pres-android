@@ -9,10 +9,12 @@
     android:padding="16dp">
 
     <TextView
+        android:textSize="16sp"
         android:text="Presentation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <TextView
+        android:layout_marginBottom="10dp"
         android:id="@+id/tvPresTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

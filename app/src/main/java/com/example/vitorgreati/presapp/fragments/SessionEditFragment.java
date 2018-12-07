@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vitorgreati.presapp.R;
 import com.example.vitorgreati.presapp.model.PresSession;
@@ -18,7 +19,7 @@ import com.example.vitorgreati.presapp.model.Presentation;
 
 public class SessionEditFragment extends Fragment {
 
-    private Button btCreate;
+    private Button btCreate, btnCancel;
     private EditText edtLocal, edtDateTime;
 
     private PresSession session;
@@ -48,12 +49,16 @@ public class SessionEditFragment extends Fragment {
 
         edtDateTime = v.findViewById(R.id.edtDateTime);
         edtDateTime.setText(session.getDateTime().toString());
-        
+
+        btnCancel = v.findViewById(R.id.btnCancel);
+        btnCancel.setVisibility(View.INVISIBLE);
+
         btCreate = v.findViewById(R.id.btnConfirm);
+        btCreate.setText("Save");
         btCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getContext(), "Not yet supported", Toast.LENGTH_LONG).show();
             }
         });
         return v;

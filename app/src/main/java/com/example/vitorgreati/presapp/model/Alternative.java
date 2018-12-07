@@ -29,7 +29,9 @@ public class Alternative implements Serializable {
 
     private transient Boolean checked;
 
-    public Alternative() {}
+    public Alternative() {
+        this.checked = false;
+    }
 
 
     public String getId() {

@@ -73,7 +73,7 @@ public class ChoiceQuestionFragment extends Fragment {
                 List<Alternative> choices = new ArrayList<>();
 
                 for (Alternative a : question.getAlternatives())
-                    if (a.getChecked())
+                    if (a.getChecked() != null && a.getChecked())
                         choices.add(a);
 
                 ChoicesAnswer answer = new ChoicesAnswer(question, new Date(), choices);
